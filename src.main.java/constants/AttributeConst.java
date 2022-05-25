@@ -34,9 +34,13 @@ public enum AttributeConst {
     USER_NAME("name"),
     USER_ADMIN_FLAG("admin_flag"),
 
-    //管理者フラグ
-    DEL_FLAG_TURE(0),
-    DEL_FLAG_FALSE(1),
+    //作成者フラグ
+    ROLE_AUTHOR(1),
+    ROLE_VIEWER(0),
+
+    //削除フラグ
+    DEL_FLAG_TURE(1),
+    DEL_FLAG_FALSE(0),
 
     //材料管理
     MATERIAL("material"),
