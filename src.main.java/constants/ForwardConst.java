@@ -11,7 +11,7 @@ public enum ForwardConst {
     //action
     ACT("action"),
     ACT_TOP("Top"),
-    ACT_USER("User"),
+    ACT_USE("User"),
     ACT_MAT("Material"),
     ACT_COO("Cooking"),
     ACT_MENU("Menu"),
