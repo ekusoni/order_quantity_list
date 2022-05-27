@@ -43,7 +43,7 @@ public class UserAction extends ActionBase {
         long userCount=service.countAll();
 
         putRequestScope(AttributeConst.USERS,users);//取得した利用者データ
-        putRequestScope(AttributeConst.USER_COUNT,userCount);//全ての利用者データの件数
+        putRequestScope(AttributeConst.USE_COUNT,userCount);//全ての利用者データの件数
         putRequestScope(AttributeConst.PAGE,page);//ページ数
         putRequestScope(AttributeConst.MAX_ROW,JpaConst.ROW_PER_PAGE);//1ページに表示するレコードの数
 
@@ -59,5 +59,24 @@ public class UserAction extends ActionBase {
         //一覧画面を表示
         forward(ForwardConst.FW_USE_INDEX);
     }
+
+
+    /**
+     * 新規登録画面を表示する
+     * @throws ServletException
+     * @throws IOException
+     */
+    public void entryNew() throws ServletException,IOException{
+
+
+        putRequestScope(AttributeConst.TOKEN,getTokenId());//CSRF対策用トークン
+        putRequestScope(AttributeConst.USER,new UserView());//空の利用者インスタンス
+
+        //新規登録画面を表示
+        forward(ForwardConst.FW_USE_NEW);
+    }
+
+
+
 
 }

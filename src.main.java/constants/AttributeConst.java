@@ -29,12 +29,12 @@ public enum AttributeConst {
     //利用者管理
     USER("user"),
     USERS("users"),
-    USER_COUNT("user_count"),
-    USER_ID("id"),
-    USER_CODE("code"),
-    USER_PASS("password"),
-    USER_NAME("name"),
-    USER_ADMIN_FLAG("admin_flag"),
+    USE_COUNT("user_count"),
+    USE_ID("id"),
+    USE_CODE("code"),
+    USE_PASS("password"),
+    USE_NAME("name"),
+    USE_AUTHOR_FLAG("admin_flag"),
 
     //作成者フラグ
     ROLE_AUTHOR(1),
