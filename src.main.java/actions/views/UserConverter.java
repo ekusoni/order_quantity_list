@@ -32,7 +32,7 @@ public class UserConverter {
                             :JpaConst.ROLE_VIEWER,
                 uv.getDeleteFlag()==null
                         ?null
-                        :uv.getDeleteFlag()==AttributeConst.DEL_FLAG_FALSE.getIntegerValue()
+                        :uv.getDeleteFlag()==AttributeConst.DEL_FLAG_TRUE.getIntegerValue()
                             ?JpaConst.USE_DEL_TRUE
                             :JpaConst.USE_DEL_FALSE);
 
@@ -65,7 +65,7 @@ public class UserConverter {
                 u.getDeleteFlag()==null
                     ?null
                     :u.getDeleteFlag()==JpaConst.USE_DEL_TRUE
-                            ?AttributeConst.DEL_FLAG_TURE.getIntegerValue()
+                            ?AttributeConst.DEL_FLAG_TRUE.getIntegerValue()
                             :AttributeConst.DEL_FLAG_FALSE.getIntegerValue());
     }
 

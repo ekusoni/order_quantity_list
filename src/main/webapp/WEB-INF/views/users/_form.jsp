@@ -37,6 +37,6 @@
 </select>
 <br /><br />
 <input type="hidden" name="${AttributeConst.USE_ID.getValue()}" value="${user.id}" />
-<input type="hidden" name="${AttributeConse.TOKEN.getValue()}" value="${_token}" />
+<input type="hidden" name="${AttributeConst.TOKEN.getValue()}" value="${_token}" />
 
 

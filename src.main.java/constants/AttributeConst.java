@@ -41,7 +41,7 @@ public enum AttributeConst {
     ROLE_VIEWER(0),
 
     //削除フラグ
-    DEL_FLAG_TURE(1),
+    DEL_FLAG_TRUE(1),
     DEL_FLAG_FALSE(0),
 
     //材料管理

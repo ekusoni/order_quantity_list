@@ -33,7 +33,7 @@
                         <td><c:out value="${user.authorFlag }" /></td>
                         <td>
                             <c:choose>
-                                <c:when test="${user.deleteFlag==AttributeConst.DEL_FLAG_TURE.getIntegerValue()}">
+                                <c:when test="${user.deleteFlag==AttributeConst.DEL_FLAG_TRUE.getIntegerValue()}">
                                     (削除済み)
                                 </c:when>
                                 <c:otherwise>
