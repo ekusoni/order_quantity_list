@@ -125,4 +125,29 @@ public class UserAction extends ActionBase {
 
     }
 
+    /**
+     * 詳細画面を表示する
+     * @throws ServletException
+     * @throws IOException
+     */
+    public void show() throws ServletException,IOException{
+
+        //idを条件に利用者データを取得する
+        UserView uv=service.findOne(toNumber(getRequestParam(AttributeConst.USE_ID)));
+
+        if(uv==null || uv.getDeleteFlag()==AttributeConst.DEL_FLAG_TRUE.getIntegerValue()) {
+
+            //データが取得できなかった、または倫理削除されている場合はエラー画面を表示
+            forward(ForwardConst.FW_ERR_UNKNOWN);
+            return;
+
+        }
+
+
+        putRequestScope(AttributeConst.USER,uv);//取得した利用者情報
+
+        //詳細画面を表示
+        forward(ForwardConst.FW_USE_SHOW);
+    }
+
 }

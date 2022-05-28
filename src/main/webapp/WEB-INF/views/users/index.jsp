@@ -23,14 +23,12 @@
                 <tr>
                     <th>ユーザー番号</th>
                     <th>氏名</th>
-                    <th>権限</th>
                     <th>判断</th>
                 </tr>
                 <c:forEach var="user" items="${users}" varStatus="status">
                     <tr class="row${status.count % 2}">
                         <td><c:out value="${user.code}" /></td>
                         <td><c:out value="${user.name}" /></td>
-                        <td><c:out value="${user.authorFlag }" /></td>
                         <td>
                             <c:choose>
                                 <c:when test="${user.deleteFlag==AttributeConst.DEL_FLAG_TRUE.getIntegerValue()}">
