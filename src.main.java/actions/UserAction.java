@@ -150,4 +150,33 @@ public class UserAction extends ActionBase {
         forward(ForwardConst.FW_USE_SHOW);
     }
 
+    /**
+     * 編集画面を表示する
+     * @throws ServletException
+     * @throws IOException
+     */
+    public void edit() throws ServletException,IOException{
+
+
+        //idを条件に利用者データを取得する
+        UserView uv=service.findOne(toNumber(getRequestParam(AttributeConst.USE_ID)));
+
+
+        if(uv==null || uv.getDeleteFlag()==AttributeConst.DEL_FLAG_TRUE.getIntegerValue()) {
+
+
+            //データが取得できなかった、または論理削除されている場合はエラー画面を表示
+            forward(ForwardConst.FW_ERR_UNKNOWN);
+            return;
+        }
+
+
+        putRequestScope(AttributeConst.TOKEN,getTokenId());//CSRF対策用トークン
+        putRequestScope(AttributeConst.USER,uv);//取得した利用者情報
+
+
+        //編集画面を表示する
+        forward(ForwardConst.FW_USE_EDIT);
+    }
+
 }

@@ -22,11 +22,13 @@ public enum ForwardConst {
     CMD_NONE(""),
     CMD_INDEX("index"),
     CMD_SHOW("show"),
+
     CMD_SHOW_LOGIN("showLogin"),
     CMD_LOGOUT("logout"),
     CMD_NEW("entryNew"),
     CMD_CREATE("create"),
     CMD_EDIT("edit"),
+    CMD_UPDATE("update"),
     CMD_DESTROY("destroy"),
 
     //jsp
@@ -35,6 +37,7 @@ public enum ForwardConst {
     FW_USE_INDEX("users/index"),
     FW_USE_NEW("users/new"),
     FW_USE_SHOW("users/show"),
+    FW_USE_EDIT("users/edit"),
     FW_MAT_NEW("materials/new"),
     FW_COO_NEW("cooking/new"),
     FW_COO_INDEX("cooking/edit"),
@@ -42,6 +45,7 @@ public enum ForwardConst {
     FW_MEN_NEW("menus/new"),
     FW_MEN_INDEX("menus/index"),
     FW_MEE_SHOW("menus/show");
+
 
     private final String text;
 
