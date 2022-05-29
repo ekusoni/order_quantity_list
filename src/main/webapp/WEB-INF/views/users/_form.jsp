@@ -33,7 +33,7 @@
 <label for="${AttributeConst.USE_AUTHOR_FLAG.getValue()}">権限</label><br />
 <select name="${AttributeConst.USE_AUTHOR_FLAG.getValue()}">
     <option value="${AttributeConst.ROLE_AUTHOR.getIntegerValue()}"<c:if test="${user.authorFlag==AttributeConst.ROLE_AUTHOR.getIntegerValue()}">selected</c:if>>作成者</option>
-    <option value="${AttributeCondt.ROLE_VIEWER.getIntegerValue()}"<c:if test="${user.authorFlag==AttributeConst.ROLE_VIEWER.getIntegerValue()}">selected</c:if>>閲覧者</option>
+    <option value="${AttributeConst.ROLE_VIEWER.getIntegerValue()}"<c:if test="${user.authorFlag==AttributeConst.ROLE_VIEWER.getIntegerValue()}">selected</c:if>>閲覧者</option>
 </select>
 <br /><br />
 <input type="hidden" name="${AttributeConst.USE_ID.getValue()}" value="${user.id}" />

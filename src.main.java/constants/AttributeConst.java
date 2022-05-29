@@ -34,7 +34,7 @@ public enum AttributeConst {
     USE_CODE("code"),
     USE_PASS("password"),
     USE_NAME("name"),
-    USE_AUTHOR_FLAG("admin_flag"),
+    USE_AUTHOR_FLAG("author_flag"),
 
     //作成者フラグ
     ROLE_AUTHOR(1),

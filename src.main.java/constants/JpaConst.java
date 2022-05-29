@@ -21,7 +21,7 @@ public interface JpaConst {
     String USE_COL_CODE="code";
     String USE_COL_NAME="name";
     String USE_COL_PASS="password";
-    String USE_COL_AUTHOR_FLAG="admin_flag";
+    String USE_COL_AUTHOR_FLAG="author_flag";
     String USE_COL_DELETE_FLAG="delete_flag";
 
 
