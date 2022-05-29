@@ -229,4 +229,22 @@ public class UserAction extends ActionBase {
         }
     }
 
+
+    public void destroy() throws ServletException,IOException{
+
+        //CSRF対策tokenのチェック
+        if(checkToken()) {
+
+            //idを条件に利用者データを論理削除する
+            service.destroy(toNumber(getRequestParam(AttributeConst.USE_ID)));
+
+            //セッションに削除完了のフラッシュメッセージを設定
+            putSessionScope(AttributeConst.FLUSH,MessageConst.I_DELETED.getMessage());
+
+            //一覧画面にリダイレクト
+            redirect(ForwardConst.ACT_USE,ForwardConst.CMD_INDEX);
+        }
+
+    }
+
 }
