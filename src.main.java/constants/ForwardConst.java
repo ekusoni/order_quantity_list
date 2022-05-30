@@ -15,7 +15,7 @@ public enum ForwardConst {
     ACT_MAT("Material"),
     ACT_COO("Cooking"),
     ACT_MENU("Menu"),
-    ACT_AUTH("Auch"),
+    ACT_AUTH("Auth"),
 
     //command
     CMD("command"),

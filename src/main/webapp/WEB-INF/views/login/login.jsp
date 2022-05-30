@@ -15,7 +15,7 @@
             </div>
         </c:if>
         <c:if test="${flush != null}">
-            <div id="flush_seccess">
+            <div id="flush_success">
                 <c:out value="${flush}"></c:out>
             </div>
         </c:if>
@@ -27,8 +27,9 @@
 
             <label for="${AttributeConst.USE_PASS.getValue()}">パスワード</label><br />
             <input type="password" name="${AttributeConst.USE_PASS.getValue()}" />
+            <br /><br />
 
-            <input type="hidden" name="${AttibuteConst.TOKEN.getValue()}" value="${_token}" />
+            <input type="hidden" name="${AttributeConst.TOKEN.getValue()}" value="${_token}" />
             <button type="submit">ログイン</button>
         </form>
     </c:param>
