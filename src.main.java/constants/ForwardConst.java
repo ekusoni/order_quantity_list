@@ -15,7 +15,7 @@ public enum ForwardConst {
     ACT_MAT("Material"),
     ACT_COO("Cooking"),
     ACT_MENU("Menu"),
-    ACT_AUCH("Auch"),
+    ACT_AUTH("Auch"),
 
     //command
     CMD("command"),
@@ -24,6 +24,7 @@ public enum ForwardConst {
     CMD_SHOW("show"),
 
     CMD_SHOW_LOGIN("showLogin"),
+    CMD_LOGIN("login"),
     CMD_LOGOUT("logout"),
     CMD_NEW("entryNew"),
     CMD_CREATE("create"),
@@ -44,7 +45,9 @@ public enum ForwardConst {
     FW_MEN_SELECT("menus/select"),
     FW_MEN_NEW("menus/new"),
     FW_MEN_INDEX("menus/index"),
-    FW_MEE_SHOW("menus/show");
+    FW_MEE_SHOW("menus/show"),
+
+    FW_LOGIN("login/login");
 
 
     private final String text;
