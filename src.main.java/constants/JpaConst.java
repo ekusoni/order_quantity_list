@@ -52,6 +52,7 @@ public interface JpaConst {
     String JPQL_PARM_CODE="code";
     String JPQL_PARM_PASSWORD="password";
     String JPQL_PARM_USER="user";
+    String JPQL_PARM_NAME="name";//材料名
 
 
 
@@ -74,6 +75,9 @@ public interface JpaConst {
     //全ての材料の件数を取得する
     String Q_MAT_COUNT=ENTITY_MAT+".count";
     String Q_MAT_COUNT_DEF="SELECT COUNT(m) FROM Material AS m";
+    //指定した材料名を保持する材料の件数を取得する
+    String Q_MAT_COUNT_RESISTERED_BY_CODE=ENTITY_MAT+".countRegisteredByCode";
+    String Q_MAT_COUNT_RESISTERED_BY_CODE_DEF="SELECT COUNT(m) FROM Material AS m WHERE m.name=:"+JPQL_PARM_NAME;
     //全ての料理をidの降順に取得する
     String Q_COO_GET_ALL=ENTITY_COO+".getAll";
     String Q_COO_GET_ALL_DEF="SELECT c FROM Cooking AS c ORDER BY c.id  DESC";

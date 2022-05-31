@@ -17,7 +17,11 @@ public enum MessageConst {
     E_NONAME("氏名を入力してください。"),
     E_NOPASSWORD("パスワードを入力してください。"),
     E_NOUSE_CODE("ユーザー番号を入力してください。"),
-    E_USE_CODE_EXIST("入力されたユーザー番号の情報は既に存在しています。");
+    E_USE_CODE_EXIST("入力されたユーザー番号の情報は既に存在しています。"),
+    E_MAT_NONAME("材料名を入力してください。"),
+    E_MAT_NOUNIT("単位を入力してください"),
+    E_MAT_NAME_EXIST("入力された材料名は既に存在しています");
+
 
     /**
      *文字列
