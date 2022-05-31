@@ -15,6 +15,8 @@ public interface JpaConst {
     int ROW_PER_PAGE=15;
 
     String TABLE_USE="users";
+    String TABLE_MAT="materials";
+    String TABLE_COO="cookings";
 
     //関係者テーブル
     String USE_COL_ID="id";
