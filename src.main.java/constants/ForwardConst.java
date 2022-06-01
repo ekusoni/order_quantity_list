@@ -39,6 +39,7 @@ public enum ForwardConst {
     FW_USE_NEW("users/new"),
     FW_USE_SHOW("users/show"),
     FW_USE_EDIT("users/edit"),
+    FW_MAT_INDEX("materials/index"),
     FW_MAT_NEW("materials/new"),
     FW_COO_NEW("cooking/new"),
     FW_COO_INDEX("cooking/edit"),

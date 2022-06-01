@@ -13,6 +13,20 @@ import models.validators.MaterialValidator;
  */
 public class MaterialService extends ServiceBase {
 
+
+    /**
+     * 指定されたページ数の一覧画面に表示するデータを取得し、MaterialViewのリストで返却する
+     * @param page数
+     * @return 表示するデータのリスト
+     */
+    public List<MaterialView> getPerPage(int page){
+        List<Material> materials=em.createNamedQuery(JpaConst.Q_MAT_GET_ALL,Material.class)
+                .setFirstResult(JpaConst.ROW_PER_PAGE * (page-1))
+                .setMaxResults(JpaConst.ROW_PER_PAGE)
+                .getResultList();
+        return MaterialConverter.toViewList(materials);
+    }
+
     /**
      * 選択要素に使用するデータを取得し、MaterialViewのリストで返却する
      * @return 使用するデータのリスト
@@ -23,6 +37,18 @@ public class MaterialService extends ServiceBase {
 
 
         return MaterialConverter.toViewList(materials);
+    }
+
+    /**
+     * 材料テーブルのデータの件数を取得し、返却する
+     * @return 材料テーブルのデータの件数
+     */
+    public long countAll() {
+        long matCount=(long)em.createNamedQuery(JpaConst.Q_MAT_COUNT,Long.class)
+                .getSingleResult();
+
+
+        return matCount;
     }
 
 

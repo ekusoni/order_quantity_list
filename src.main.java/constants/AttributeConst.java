@@ -29,7 +29,7 @@ public enum AttributeConst {
     //利用者管理
     USER("user"),
     USERS("users"),
-    USE_COUNT("user_count"),
+    USE_COUNT("users_count"),
     USE_ID("id"),
     USE_CODE("code"),
     USE_PASS("password"),
@@ -47,6 +47,7 @@ public enum AttributeConst {
     //材料管理
     MATERIAL("material"),
     MATERIALS("materials"),
+    MAT_COUNT("materials_count"),
     MATERIAL_ID("id"),
 
     //料理管理

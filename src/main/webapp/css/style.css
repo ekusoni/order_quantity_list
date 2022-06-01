@@ -136,3 +136,16 @@ h1 a{
     color: #eeeeee;
 }
 
+table#material_list th{
+    font-weight: bold;
+    padding: 10px 2%;
+}
+
+table#material_list .material_name{
+    width: 20%;
+    padding: 10px 2%;
+}
+
+table#material_list .material_unit{
+    width: 20%;
+}
