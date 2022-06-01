@@ -244,6 +244,13 @@ public class UserAction extends ActionBase {
 
     }
 
+    /**
+     * ログイン中の利用者が作成者かどうかチェックし、作成者でなければエラー画面を表示
+     * true: 作成者 false: 作成者ではない
+     * @throws ServletException
+     * @throws IOException
+     */
+
     private boolean checkAuthor() throws ServletException, IOException {
 
         //セッションからログイン中の利用者情報を取得
