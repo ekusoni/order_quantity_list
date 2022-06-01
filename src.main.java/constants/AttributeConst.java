@@ -48,18 +48,20 @@ public enum AttributeConst {
     MATERIAL("material"),
     MATERIALS("materials"),
     MAT_COUNT("materials_count"),
-    MATERIAL_ID("id"),
+    MAT_ID("id"),
+    MAT_NAME("name"),
+    MAT_UNIT("unit"),
 
     //料理管理
     COOKING("cooking"),
     COOKINGS("cookings"),
-    COOKING_ID("id"),
-    COOKING_NAME("name"),
+    COO_ID("id"),
+    COO_NAME("name"),
 
     //メニュー管理
     MENU("menu"),
     MENUS("menus"),
-    MENUS_ID("id"),
+    MEN_ID("id"),
     MENUDATE_START("menudate_strat"),
     MUNUDATE_END("menudate_end");
 

@@ -74,19 +74,30 @@ public class MaterialService extends ServiceBase {
      */
     public List<String> create(MaterialView mv){
 
+
+
         //登録内容のバリテーションを行う
         List<String> errors=MaterialValidator.validate(this,mv);
 
         //バリデーションエラーがなければデータを登録する
         if(errors.size()== 0) {
-            em.getTransaction().begin();
-            em.persist(MaterialConverter.toModel(mv));
-            em.getTransaction().commit();
+            createInternal(mv);
         }
 
         //エラーを返却(エラーがなければ0件の空リスト)
         return errors;
 
+    }
+
+    /**
+     * 材料データを1件登録する
+     * @param mv 材料データ
+     */
+    private void createInternal(MaterialView mv) {
+
+        em.getTransaction().begin();
+        em.persist(MaterialConverter.toModel(mv));
+        em.getTransaction().commit();
     }
 
 
