@@ -15,6 +15,7 @@ public interface JpaConst {
     int ROW_PER_PAGE=15;
 
     String TABLE_USE="users";
+    String TABLE_MATM="materials_master";
     String TABLE_MAT="materials";
     String TABLE_COO="cookings";
 
@@ -35,14 +36,14 @@ public interface JpaConst {
 
 
     //材料テーブル
-    String MAT_COL_ID="id";
-    String MAT_COL_NAME="name";
-    String MAT_COL_UNIT="unit";
-    String MAT_COL_COO="cooking_id";
+    String MATM_COL_ID="id";
+    String MATM_COL_NAME="name";
+    String MATM_COL_UNIT="unit";
 
     //料理テーブル
     String COO_COL_ID="id";
     String COO_COL_NAME="name";
+    String COO_COL_AMOUNT="amount";
 
     //Entity名
     String ENTITY_USE="user";//利用者
@@ -70,20 +71,23 @@ public interface JpaConst {
     String Q_USE_COUNT_RESISTERED_BY_CODE=ENTITY_USE+".countRegisteredByCode";
     String Q_USE_COUNT_RESISTERED_BY_CODE_DEF="SELECT COUNT(u) FROM User AS u WHERE u.code=:"+JPQL_PARM_CODE;
     //全ての材料をidの降順に取得する
-    String Q_MAT_GET_ALL=ENTITY_MAT+".getAll";
-    String Q_MAT_GET_ALL_DEF="SELECT m FROM Material AS m ORDER BY m.id DESC";
+    String Q_MATM_GET_ALL=ENTITY_MAT+".getAll";
+    String Q_MATM_GET_ALL_DEF="SELECT m FROM MaterialMaster AS m ORDER BY m.id DESC";
     //全ての材料の件数を取得する
-    String Q_MAT_COUNT=ENTITY_MAT+".count";
-    String Q_MAT_COUNT_DEF="SELECT COUNT(m) FROM Material AS m";
+    String Q_MATM_COUNT=ENTITY_MAT+".count";
+    String Q_MATM_COUNT_DEF="SELECT COUNT(m) FROM MaterialMaster AS m";
     //指定した材料名を保持する材料の件数を取得する
-    String Q_MAT_COUNT_RESISTERED_BY_CODE=ENTITY_MAT+".countRegisteredByCode";
-    String Q_MAT_COUNT_RESISTERED_BY_CODE_DEF="SELECT COUNT(m) FROM Material AS m WHERE m.name=:"+JPQL_PARM_NAME;
+    String Q_MATM_COUNT_RESISTERED_BY_NAME=ENTITY_MAT+".countRegisteredByCode";
+    String Q_MATM_COUNT_RESISTERED_BY_NAME_DEF="SELECT COUNT(m) FROM MaterialMaster AS m WHERE m.name=:"+JPQL_PARM_NAME;
     //全ての料理をidの降順に取得する
     String Q_COO_GET_ALL=ENTITY_COO+".getAll";
     String Q_COO_GET_ALL_DEF="SELECT c FROM Cooking AS c ORDER BY c.id  DESC";
    //全ての料理の件数を取得する
     String Q_COO_COUNT=ENTITY_COO+".count";
     String Q_COO_COUNT_DEF="SELECT COUNT(c) FROM Cooking AS c";
+    //指定した料理名を保持する料理の件数を取得する
+    String Q_COO_COUNT_RESISTERED_BY_NAME=ENTITY_COO+".countRegisteredByName";
+    String Q_COO_COUNT_RESISTERED_BY_NAME_DEF="SELECT COUNT(c) FROM Cooking AS c WHERE c.name=:"+JPQL_PARM_NAME;
 
 
 }

@@ -6,7 +6,7 @@
 
 <c:set var="actTop" value="${ForwardConst.ACT_TOP.getValue()}" />
 <c:set var="actUse" value="${ForwardConst.ACT_USE.getValue()}" />
-<c:set var="actMat" value="${ForwardConst.ACT_MAT.getValue()}" />
+<c:set var="actMatM" value="${ForwardConst.ACT_MATM.getValue()}" />
 <c:set var="actCoo" value="${ForwardConst.ACT_COO.getValue()}" />
 <c:set var="actAut" value="${ForwardConst.ACT_AUTH.getValue()}" />
 
@@ -29,7 +29,7 @@
                 <c:if test="${sessionScope.login_user !=null}">
                     <c:if test="${sessionScope.login_user.authorFlag==AttributeConst.ROLE_AUTHOR.getIntegerValue()}">
                         <a href="<c:url value='?action=${actUse}&command=${commIdx}' />">利用者一覧</a>
-                        <a href="<c:url value='?action=${actMat}&command=${commIdx}' />">材料</a>
+                        <a href="<c:url value='?action=${actMatM}&command=${commIdx}' />">材料</a>
                         <a href="<c:url value='?action=${actCoo}&command=${commIdx}' />">料理</a>
                     </c:if>
                 </c:if>

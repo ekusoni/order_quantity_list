@@ -45,12 +45,12 @@ public enum AttributeConst {
     DEL_FLAG_FALSE(0),
 
     //材料管理
-    MATERIAL("material"),
-    MATERIALS("materials"),
-    MAT_COUNT("materials_count"),
-    MAT_ID("id"),
-    MAT_NAME("name"),
-    MAT_UNIT("unit"),
+    MATERIALM("materialMaster"),
+    MATERIALMS("materialMasters"),
+    MATM_COUNT("materialMasters_count"),
+    MATM_ID("id"),
+    MATM_NAME("name"),
+    MATM_UNIT("unit"),
 
     //料理管理
     COOKING("cooking"),
