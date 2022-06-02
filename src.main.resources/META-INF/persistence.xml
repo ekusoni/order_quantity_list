@@ -3,7 +3,8 @@
     <persistence-unit name="order_quantity_list" transaction-type="RESOURCE_LOCAL">
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
         <class>models.User</class>
-        <class>models.Material</class>
+        <class>models.Cooking</class>
+        <class>models.MaterialMaster</class>
         <properties>
             <property name="javax.persistence.schema-generation.database.action" value="create"/>
             <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL8Dialect"/>
