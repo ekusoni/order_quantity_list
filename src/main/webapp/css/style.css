@@ -149,3 +149,33 @@ table#material_list .material_name{
 table#material_list .material_unit{
     width: 20%;
 }
+
+table#cooking_list th{
+    font-weight: bold;
+    padding: 10px 2%
+}
+
+table#cooking_list .cooking_name{
+    width: 30%;
+    padding: 10px 2%;
+}
+
+table#cooking_list .cooking_date{
+    width: 20;
+}
+
+table#cooking_list .cooking_action{
+    width: 20%;
+}
+
+.cooking_material{
+    width: 50%;
+}
+
+.material_show{
+    display: inline-block;
+}
+
+h3{
+    font-size: larger;
+}
