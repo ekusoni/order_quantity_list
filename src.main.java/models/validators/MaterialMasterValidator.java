@@ -7,6 +7,9 @@ import actions.views.MaterialMasterView;
 import constants.MessageConst;
 import services.MaterialMasterService;
 
+/**
+ * 材料インスタンスに設定されている値のバリデーションを行うクラス
+ */
 public class MaterialMasterValidator {
 
     public static List<String> validate(MaterialMasterService service, MaterialMasterView mmv) {
@@ -51,12 +54,23 @@ public class MaterialMasterValidator {
         return "";
     }
 
+
+    /**
+     * @param service MaterialMasterServiceのインスタンス
+     * @param name 材料名
+     * @return 材料テーブルに登録されている同一名のデータの件数
+     */
     private static long isDuplicateMaterialMaster(MaterialMasterService service, String name) {
 
         long materialMastersCount = service.countByName(name);
         return materialMastersCount;
     }
 
+    /**
+     * 単位に入力値があるかをチェックし、入力値がなければエラーメッセージを返却
+     * @param unit 単位
+     * @return エラーメッセージ
+     */
     private static String validateUnit(String unit) {
 
         if (unit == null || unit.equals("")) {
