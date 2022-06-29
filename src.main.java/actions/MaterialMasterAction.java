@@ -83,10 +83,14 @@ public class MaterialMasterAction extends ActionBase {
         }
     }
 
-
+    /**
+     * 新規登録を行う
+     * @throws ServletException
+     * @throws IOException
+     */
     public void create() throws ServletException, IOException {
 
-        System.out.println("材料の名前"+getRequestParam(AttributeConst.MATM_NAME));
+
         //CSRF対策tokenのチェック
         if (checkAuthor()) {
 
