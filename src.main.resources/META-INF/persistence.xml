@@ -6,6 +6,7 @@
         <class>models.Cooking</class>
         <class>models.MaterialMaster</class>
         <class>models.Material</class>
+        <class>models.Menu</class>
         <properties>
             <property name="javax.persistence.schema-generation.database.action" value="create"/>
             <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL8Dialect"/>
