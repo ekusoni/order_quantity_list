@@ -21,14 +21,20 @@ public class MaterialView {
     private Integer id;
 
     /**
-     * 材料名
+     * 量を指定する材料のid
      */
-    private String name;
+    private MaterialMasterView materialMaster;
 
     /**
-     * 単位
+     * 材料を使用する料理のid
      */
-    private String unit;
+    private CookingView cooking;
+
+    /**
+     * 材料の量
+     */
+    private Integer amount;
+
 
 
 }
