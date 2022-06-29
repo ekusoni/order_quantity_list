@@ -31,6 +31,10 @@ import lombok.Setter;
     @NamedQuery(
             name=JpaConst.Q_COO_COUNT_RESISTERED_BY_NAME,
             query=JpaConst.Q_COO_COUNT_RESISTERED_BY_NAME_DEF),
+    @NamedQuery(
+            name=JpaConst.Q_COO_GET_BY_NAME,
+            query=JpaConst.Q_COO_GET_BY_NAME_DEF)
+
 })
 
 @Getter//全てのクラスフィールドについてgetterを自動生成する(Lombok)
@@ -55,10 +59,5 @@ public class Cooking {
     @Column(name=JpaConst.COO_COL_NAME)
     private String name;
 
-    /**
-     * 材料の量
-     */
-    @Column(name=JpaConst.COO_COL_AMOUNT)
-    private Integer amount;
 
 }
