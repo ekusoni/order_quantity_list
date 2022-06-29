@@ -53,6 +53,13 @@ public interface JpaConst {
     String COO_COL_NAME="name";
     String COO_COL_AMOUNT="amount";
 
+    //メニューテーブル
+    String TABLE_MENU="menus";
+    //メニューカラム
+    String MENU_COL_ID="id";//id
+    String MENU_COL_START_DATE="start_date";//メニューの開始日
+    String MENU_COL_END_DATE="end_date";//メニューの終了日
+
     //Entity名
     String ENTITY_USE="user";//利用者
     String ENTITY_MATM="materialMaster";//材料(材料名と単位)
