@@ -23,6 +23,9 @@ public enum AttributeConst {
     //ログイン中の利用者
     LOGIN_USE("login_user"),
 
+    //登録途中の料理
+    DURING_REGISTRATION("d_registration"),
+
     //ログイン画面
     LOGIN_ERR("loginError"),
 
@@ -47,14 +50,23 @@ public enum AttributeConst {
     //材料管理
     MATERIALM("materialMaster"),
     MATERIALMS("materialMasters"),
+    MATERIALMSS("materialMasters_select"),
     MATM_COUNT("materialMasters_count"),
     MATM_ID("id"),
     MATM_NAME("name"),
     MATM_UNIT("unit"),
+    MAT_COL_MATERIALMASTER_ID("materialMaster_id"),
+
+    MAT_ID("id"),
+    MAT_AMOUNT("materialAmount"),
+    MATERIALS("materials"),
+    MAT_TENTATIVE("materialTentative"),
+    MAT_TENTATIVE_LENGTH("tentativeLength"),
 
     //料理管理
     COOKING("cooking"),
     COOKINGS("cookings"),
+    COO_COUNT("cookings_count"),
     COO_ID("id"),
     COO_NAME("name"),
 

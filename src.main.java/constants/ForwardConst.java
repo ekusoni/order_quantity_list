@@ -22,7 +22,6 @@ public enum ForwardConst {
     CMD_NONE(""),
     CMD_INDEX("index"),
     CMD_SHOW("show"),
-
     CMD_SHOW_LOGIN("showLogin"),
     CMD_LOGIN("login"),
     CMD_LOGOUT("logout"),
@@ -31,6 +30,10 @@ public enum ForwardConst {
     CMD_EDIT("edit"),
     CMD_UPDATE("update"),
     CMD_DESTROY("destroy"),
+    CMD_NEXT("next"),
+    CMD_ADDITION("addition"),
+    CMD_INCREASE("increase"),
+    CMD_GAIN("gain"),
 
     //jsp
     FW_ERR_UNKNOWN("error/unknown"),
@@ -42,11 +45,17 @@ public enum ForwardConst {
     FW_MATM_INDEX("materialMasters/index"),
     FW_MATM_NEW("materialMasters/new"),
     FW_COO_NEW("cooking/new"),
-    FW_COO_INDEX("cooking/edit"),
+    FW_COO_INDEX("cooking/index"),
+    FW_COO_NEXT("cooking/next"),
+    FW_COO_SHOW("cooking/show"),
+    FW_COO_EDIT("cooking/edit"),
+    FW_COO_ADD("cooking/addition"),
+    FW_COO_INC("cooking/increase"),
     FW_MEN_SELECT("menus/select"),
     FW_MEN_NEW("menus/new"),
     FW_MEN_INDEX("menus/index"),
     FW_MEE_SHOW("menus/show"),
+
 
     FW_LOGIN("login/login");
 

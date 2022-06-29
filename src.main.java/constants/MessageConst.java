@@ -20,7 +20,10 @@ public enum MessageConst {
     E_USE_CODE_EXIST("入力されたユーザー番号の情報は既に存在しています。"),
     E_MATM_NONAME("材料名を入力してください。"),
     E_MATM_NOUNIT("単位を入力してください"),
-    E_MATM_NAME_EXIST("入力された材料名は既に存在しています");
+    E_MATM_NAME_EXIST("入力された材料名は既に存在しています"),
+    E_MAT_NOAMOUNT("正常な値を入力してください。"),
+    E_COO_NONAME("料理名を入力してください。"),
+    E_COO_NAME_EXIST("入力された料理名は既に存在しています");
 
 
     /**
