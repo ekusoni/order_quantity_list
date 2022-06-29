@@ -194,6 +194,10 @@ public abstract class ActionBase {
         return request.getParameter(key.getValue());
     }
 
+    protected String[] getRequestParamValues(AttributeConst key) {
+        return request.getParameterValues(key.getValue());
+    }
+
     /**
      * リクエストスコープにパラメータを設定する
      * @param key パラメータ名
@@ -221,6 +225,10 @@ public abstract class ActionBase {
     protected <V> void putSessionScope(AttributeConst key, V value) {
         request.getSession().setAttribute(key.getValue(), value);
     }
+
+
+
+
 
     /**
      * セッションスコープから指定された名前のパラメータを除去する
