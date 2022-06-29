@@ -47,7 +47,7 @@ public enum AttributeConst {
     DEL_FLAG_TRUE(1),
     DEL_FLAG_FALSE(0),
 
-    //材料管理
+    //材料(材料名、単位)管理
     MATERIALM("materialMaster"),
     MATERIALMS("materialMasters"),
     MATERIALMSS("materialMasters_select"),
@@ -57,6 +57,7 @@ public enum AttributeConst {
     MATM_UNIT("unit"),
     MAT_COL_MATERIALMASTER_ID("materialMaster_id"),
 
+    //材料(量)管理
     MAT_ID("id"),
     MAT_AMOUNT("materialAmount"),
     MATERIALS("materials"),
@@ -76,6 +77,7 @@ public enum AttributeConst {
     MEN_ID("id"),
     MENUDATE_START("menudate_strat"),
     MUNUDATE_END("menudate_end");
+
 
 
 
