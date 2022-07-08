@@ -28,7 +28,7 @@ public class MaterialConverter {
 
     /**
      * DTOモデルのインスタンスからViewモデルのインスタンスを作成する
-     * @param mm Materialのインスタンス
+     * @param m Materialのインスタンス
      * @return MaterialViewのインスタンス
      */
     public static MaterialView toView(Material m) {
