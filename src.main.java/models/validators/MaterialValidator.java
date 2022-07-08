@@ -23,12 +23,12 @@ public class MaterialValidator {
     }
 
     /**
-     * 量がnullかをチェックし、nullならばエラーメッセージを返却
+     * 数値かどうかチェックし、数値では無かったならばエラーメッセージを返却
      * @param amount 量
      * @return エラーメッセージを返却
      *
      */
-    public static String validateAmount(Integer amount) {
+    private static String validateAmount(Integer amount) {
         if(amount <= 0) {
             return MessageConst.E_MAT_NOAMOUNT.getMessage();
         }
@@ -38,12 +38,6 @@ public class MaterialValidator {
 
     }
 
-    /**
-     * 量に入力されたのが数値じゃない場合はエラーメッセージを返却
-     * return エラーメッセージを返却
-     */
-    public static String validateAmount(){
-        return MessageConst.E_MAT_NOAMOUNT.getMessage();
-    }
+
 
 }
