@@ -7,6 +7,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.Table;
 
 import constants.JpaConst;
 import lombok.AllArgsConstructor;
@@ -18,6 +21,19 @@ import lombok.Setter;
  * メニューデータのDTOモデル
  *
  */
+@Table(name=JpaConst.TABLE_MENU)
+@NamedQueries({
+    @NamedQuery(
+            name=JpaConst.Q_MEN_GET_ALL,
+            query=JpaConst.Q_MEN_GET_ALL_DEF),
+    @NamedQuery(
+            name=JpaConst.Q_MEN_COUNT,
+            query=JpaConst.Q_MEN_COUNT_DEF),
+    @NamedQuery(
+            name=JpaConst.Q_MEN_GET_BY_MAXID,
+            query=JpaConst.Q_MEN_GET_BY_MAXID_DEF)
+
+})
 
 @Getter //全てのクラスフィールドについてgetterを自動生成する(Lombok)
 @Setter //全てのクラスフィールドについてsetterを自動生成する(Lombok)
