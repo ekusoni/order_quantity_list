@@ -24,6 +24,33 @@ public class MaterialMasterService extends ServiceBase{
 
     }
 
+    /**
+     * 指定された材料名を条件にデータを取得し、MaterialMasterViewのリストで返却する
+     * @param name 材料名
+     * @return
+     */
+    public List<MaterialMasterView> searchName(String name){
+        List<MaterialMaster> searchNames=em.createNamedQuery(JpaConst.Q_MATM_SEARCH_BY_NAME,MaterialMaster.class)
+                .setParameter(JpaConst.JPQL_PARM_NAME,name+"%")
+                .getResultList();
+
+
+        return MaterialMasterConverter.toViewList(searchNames);
+    }
+
+    /**
+     * 指定された単位を条件にデータを取得し、MaterialMasterViewのリストで返却する
+     * @param unit 単位
+     * @return 表示するデータのリスト
+     */
+    public List<MaterialMasterView> searchUnit(String unit){
+        List<MaterialMaster> searchUnits=em.createNamedQuery(JpaConst.Q_MATM_SEARCH_BY_UNIT,MaterialMaster.class)
+                .setParameter(JpaConst.JPQL_PARM_UNIT,unit+"%")
+                .getResultList();
+
+        return MaterialMasterConverter.toViewList(searchUnits);
+    }
+
 
     /**
      * 料理の登録ページで表示する材料データを取得し、MaterialMasterViewのリストで返却する
