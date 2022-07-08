@@ -61,6 +61,13 @@ public class MaterialMasterAction extends ActionBase {
                 removeSessionScope(AttributeConst.FLUSH);
             }
 
+            //セッションに検索結果が設定されている場合はリクエストスコープに移し替えセッションから削除する
+            List<MaterialMasterView> searchMaterialMasters= getSessionScope(AttributeConst.SEARCHMATERIALMS);
+            if (searchMaterialMasters != null) {
+                putRequestScope(AttributeConst.SEARCHMATERIALMS,searchMaterialMasters);
+                removeSessionScope(AttributeConst.SEARCHMATERIALMS);
+            }
+
             //一覧画面を表示
             forward(ForwardConst.FW_MATM_INDEX);
         }
@@ -128,6 +135,42 @@ public class MaterialMasterAction extends ActionBase {
             }
 
 
+        }
+    }
+
+    /**
+     * 検索を行う
+     * @throws ServletException
+     * @throws IOException
+     */
+    public void search() throws ServletException, IOException{
+
+        if(checkAuthor()) {
+            //MATERIALMの中身によって処理を分ける
+            if(getRequestParam(AttributeConst.MATERIALM).equals("name")) {
+                String name=getRequestParam(AttributeConst.MATM_WORD);
+                if(name != "") {
+                    List<MaterialMasterView> searchMaterialMasters=service.searchName(name);
+                    putSessionScope(AttributeConst.SEARCHMATERIALMS,searchMaterialMasters);
+                }
+            }else if(getRequestParam(AttributeConst.MATERIALM).equals("unit")) {
+                String unit=getRequestParam(AttributeConst.MATM_WORD);
+                if(unit != "") {
+                    List<MaterialMasterView> searchMaterialMasters=service.searchUnit(unit);
+                    putSessionScope(AttributeConst.SEARCHMATERIALMS,searchMaterialMasters);
+
+
+
+                }
+
+            }
+
+
+
+
+
+            //一覧画面にリダイレクト
+            redirect(ForwardConst.ACT_MATM,ForwardConst.CMD_INDEX);
         }
     }
 
