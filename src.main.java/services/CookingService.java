@@ -30,6 +30,21 @@ public class CookingService extends ServiceBase {
         return CookingConverter.toViewList(cookings);
     }
 
+    /**
+     * プルダウンメニューで使用するデータを取得しCookingViewのリストで返却する
+     * @return 表示するデータのリスト
+     */
+    public List<CookingView> getSelectList(){
+        List<Cooking> cookings=em.createNamedQuery(JpaConst.Q_COO_GET_ALL,Cooking.class)
+                .getResultList();
+
+
+
+        return CookingConverter.toViewList(cookings);
+    }
+
+
+
 
     /**
      * 料理テーブルのデータの件数を取得し、返却する
@@ -69,6 +84,12 @@ public class CookingService extends ServiceBase {
         return cookings_count;
     }
 
+
+    /**
+     * 料理名を条件に取得したデータをCookingViewのインスタンスで返却する
+     * @param name
+     * @return
+     */
     public CookingView findName(String name) {
         Cooking c = null;
 
