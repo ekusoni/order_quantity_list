@@ -227,6 +227,12 @@ public class UserAction extends ActionBase {
         }
     }
 
+
+    /**
+     * 論理削除削除を行う
+     * @throws ServletException
+     * @throws IOException
+     */
     public void destroy() throws ServletException, IOException {
 
         //CSRF対策tokenのチェック
