@@ -42,7 +42,7 @@ public class Material {
     private Integer id;
 
     /**
-     * 量を指定する料理のid
+     * 材料(量)のid
      */
     @ManyToOne
     @JoinColumn(name=JpaConst.MAT_COL_MATM,nullable=false)
