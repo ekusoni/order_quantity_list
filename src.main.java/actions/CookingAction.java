@@ -239,7 +239,6 @@ public class CookingAction extends ActionBase {
             //該当の料理データが存在しない場合はエラー画面を表示
             forward(ForwardConst.FW_ERR_UNKNOWN);
         } else {
-            putRequestScope(AttributeConst.TOKEN, getTokenId());//CSRF対策用トークン
             putRequestScope(AttributeConst.COOKING, cv);//取得した料理データ
             putRequestScope(AttributeConst.MATERIALS, materials);//取得した材料データ
 
@@ -370,6 +369,10 @@ public class CookingAction extends ActionBase {
      * @throws IOException
      */
     public void addition() throws ServletException,IOException{
+
+        if(getSessionScope(AttributeConst.MAT_TENTATIVE) != null) {
+            removeSessionScope(AttributeConst.MAT_TENTATIVE);
+        }
         CookingView cv=serviceCoo.findOne(toNumber(getRequestParam(AttributeConst.COO_ID)));
         List<MaterialView> materials=serviceMat.getPage();
         List<MaterialMasterView> materialMastersSelect=serviceMas.getSelectList();
@@ -460,13 +463,15 @@ public class CookingAction extends ActionBase {
 
         for (int i = 0; i < mvArrayT.length; i++) {
             mvArrayT[i].setCooking(cv);
-            System.out.println("mvArrayT[i]"+mvArrayT[i].getCooking().getName());
 
             serviceMat.create(mvArrayT[i]);
         }
 
         removeSessionScope(AttributeConst.COOKING);
         removeSessionScope(AttributeConst.MAT_TENTATIVE);
+
+        //セッションに登録完了のフラッシュメッセージを設定
+        putSessionScope(AttributeConst.FLUSH,MessageConst.I_UPDATED.getMessage());
 
         //一覧画面にリダイレクト
         redirect(ForwardConst.ACT_COO, ForwardConst.CMD_INDEX);
@@ -483,6 +488,8 @@ public class CookingAction extends ActionBase {
 
         serviceMat.destroy(mv);
 
+        //セッションに削除完了のフラッシュメッセージを設定
+        putSessionScope(AttributeConst.FLUSH,MessageConst.I_DELETED.getMessage());
         //一覧画面にリダイレクト
         redirect(ForwardConst.ACT_COO, ForwardConst.CMD_INDEX);
     }
