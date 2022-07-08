@@ -12,14 +12,14 @@
     <c:param name="content">
 
         <c:if test="${errors != null}">
-        <div id="flush_error">
+            <div id="flush_error">
             入力内容にエラーがあります。<br />
             <c:forEach var="error" items="${errors}">
                 ・<c:out value="${error}" /><br />
             </c:forEach>
 
         </div>
-    </c:if>
+        </c:if>
         <h2>料理 編集ページ</h2>
 
         <form method="POST">

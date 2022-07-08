@@ -9,6 +9,7 @@
 <c:set var="actMatM" value="${ForwardConst.ACT_MATM.getValue()}" />
 <c:set var="actCoo" value="${ForwardConst.ACT_COO.getValue()}" />
 <c:set var="actAut" value="${ForwardConst.ACT_AUTH.getValue()}" />
+<c:set var="actMen" value="${ForwardConst.ACT_MENU.getValue()}" />
 
 <c:set var="commIdx" value="${ForwardConst.CMD_INDEX.getValue()}" />
 <c:set var="commOut" value="${ForwardConst.CMD_LOGOUT.getValue()}" />
@@ -31,6 +32,7 @@
                         <a href="<c:url value='?action=${actUse}&command=${commIdx}' />">利用者一覧</a>
                         <a href="<c:url value='?action=${actMatM}&command=${commIdx}' />">材料</a>
                         <a href="<c:url value='?action=${actCoo}&command=${commIdx}' />">料理</a>
+                        <a href="<c:url value='?action=${actMen}&command=${commIdx}' />">メニュー</a>
                     </c:if>
                 </c:if>
             </div>
