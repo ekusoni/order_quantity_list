@@ -27,6 +27,13 @@ import lombok.Setter;
     @NamedQuery(
             name=JpaConst.Q_MATM_COUNT_RESISTERED_BY_NAME,
             query=JpaConst.Q_MATM_COUNT_RESISTERED_BY_NAME_DEF),
+    @NamedQuery(
+            name=JpaConst.Q_MATM_SEARCH_BY_NAME,
+            query=JpaConst.Q_MATM_SEARCH_BY_NAME_DEF),
+    @NamedQuery(
+            name=JpaConst.Q_MATM_SEARCH_BY_UNIT,
+            query=JpaConst.Q_MATM_SEARCH_BY_UNIT_DEF),
+
 })
 
 @Getter//全てのクラスフィールドについてgetterを自動生成する(Lombok)
