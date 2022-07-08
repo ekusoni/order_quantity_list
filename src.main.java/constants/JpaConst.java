@@ -32,7 +32,7 @@ public interface JpaConst {
     int USE_DEL_FALSE=0;//削除フラグOFF(現役)
 
     //材料マスタ(材料名、単位)テーブル
-    String TABLE_MATM="materials_master"; //テーブル名
+    String TABLE_MATM="material_masters"; //テーブル名
     //材料マスタテーブルカラム
     String MATM_COL_ID="id"; //id
     String MATM_COL_NAME="name"; //材料名
@@ -53,6 +53,15 @@ public interface JpaConst {
     String COO_COL_NAME="name";
     String COO_COL_AMOUNT="amount";
 
+    //料理(量)テーブル
+    String TABLE_COS="cooking_slaves";
+    //料理テーブルカラム
+    String COS_COL_ID="id";
+    String COS_COL_MEN="menu_id";
+    String COS_COL_COO="cooking_id";
+    String COS_COL_AMOUNT="amount";
+    String COS_COL_TIME="time_zone";
+
     //メニューテーブル
     String TABLE_MENU="menus";
     //メニューカラム
@@ -64,13 +73,17 @@ public interface JpaConst {
     String ENTITY_USE="user";//利用者
     String ENTITY_MATM="materialMaster";//材料(材料名と単位)
     String ENTITY_MAT="material";//材料(量)
-    String ENTITY_COO="cooking";
+    String ENTITY_COO="cooking";//料理
+    String ENTITY_COS="cookingSlave";//料理(量)
+    String ENTITY_MEN="menu";//メニュー
 
     //JPQL内のパラメータ
     String JPQL_PARM_CODE="code";//利用者番号
     String JPQL_PARM_PASSWORD="password";//パスワード
     String JPQL_PARM_USER="user";//利用者
     String JPQL_PARM_NAME="name";//材料名
+    String JPQL_PARM_UNIT="unit";//単位
+    String JPQL_PARM_ID="id";//id
 
 
 
@@ -96,7 +109,13 @@ public interface JpaConst {
     //指定した材料名を保持する材料の件数を取得する
     String Q_MATM_COUNT_RESISTERED_BY_NAME=ENTITY_MATM+".countRegisteredByCode";
     String Q_MATM_COUNT_RESISTERED_BY_NAME_DEF="SELECT COUNT(mm) FROM MaterialMaster AS mm WHERE mm.name=:"+JPQL_PARM_NAME;
-    //指定した材料(量)をidの昇順に取得する
+    //指定した材料名を保持する材料をidの降順に取得する
+    String Q_MATM_SEARCH_BY_NAME=ENTITY_MATM+"getByName";
+    String Q_MATM_SEARCH_BY_NAME_DEF="SELECT mm FROM MaterialMaster AS mm WHERE mm.name LIKE :"+JPQL_PARM_NAME+" ORDER BY mm.id DESC";
+    //指定した単位を保持する材料をidの降順に取得する
+    String Q_MATM_SEARCH_BY_UNIT=ENTITY_MATM+"getByunit";
+    String Q_MATM_SEARCH_BY_UNIT_DEF="SELECT mm FROM MaterialMaster AS mm WHERE mm.unit LIKE :"+JPQL_PARM_UNIT+" ORDER BY mm.id DESC";
+    //全ての材料(量)をidの昇順に取得する
     String Q_MAT_GET_ALL=ENTITY_MAT+".getAll";
     String Q_MAT_GET_ALL_DEF="SELECT m FROM Material AS m ORDER BY m.id";
     //全ての料理をidの降順に取得する
@@ -111,6 +130,22 @@ public interface JpaConst {
     //指定した料理名を条件に料理を取得する
     String Q_COO_GET_BY_NAME=ENTITY_COO+".getByName";
     String Q_COO_GET_BY_NAME_DEF="SELECT c FROM Cooking AS c WHERE c.name=:"+JPQL_PARM_NAME;
+    //全ての料理(量)をidの昇順に取得する
+    String Q_COS_GET_ALL=ENTITY_COS+".getAll";
+    String Q_COS_GET_ALL_DEF="SELECT cs FROM CookingSlave AS cs ORDER BY cs.id";
+    //指定したメニューidを持つ料理(量)を昇順に取得する。
+    String Q_COS_GET_BY_MENU_ID=ENTITY_COS+"getByMenuId";
+    String Q_COS_GET_BY_MENU_ID_DEF="SELECT cs FROM CookingSlave AS cs WHERE cs.menu.id=:"+JPQL_PARM_ID;
+    //全てのメニューをidの降順に取得する
+    String Q_MEN_GET_ALL=ENTITY_MEN+".getAll";
+    String Q_MEN_GET_ALL_DEF="SELECT m FROM Menu AS m ORDER BY m.id DESC";
+    //全てのメニューの件数を取得する
+    String Q_MEN_COUNT=ENTITY_MEN+".count";
+    String Q_MEN_COUNT_DEF="SELECT COUNT(m) FROM Menu AS m";
+    //メニューのidが一番大きいのを取得する
+    String Q_MEN_GET_BY_MAXID=ENTITY_MEN+".getById";
+    String Q_MEN_GET_BY_MAXID_DEF="SELECT m FROM Menu AS m WHERE m.id=(SELECT MAX(m.id) From Menu AS m)";
+
 
 
 }

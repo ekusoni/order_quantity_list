@@ -56,6 +56,8 @@ public enum AttributeConst {
     MATM_NAME("name"),
     MATM_UNIT("unit"),
     MAT_COL_MATERIALMASTER_ID("materialMaster_id"),
+    SEARCHMATERIALMS("searchMaterialMasters"),
+    MATM_WORD("word"),
 
     //材料(量)管理
     MAT_ID("id"),
@@ -71,12 +73,31 @@ public enum AttributeConst {
     COO_ID("id"),
     COO_NAME("name"),
 
+    //料理(量)管理
+    COOKINGSL("cookingSlave"),
+    COOKINGSLS("cookingSlaves"),
+    COS_ID("id"),
+    COOKINGSL_AMOUNT("cookingSlave_amount"),
+    COOKINGSL_TIMEZONE("cookingSlave_timeZone"),
+    COS_COL_MORNING_COOKING_ID("morning_cooking_id"),
+    COS_COL_NOON_COOKING_ID("noon_cooking_id"),
+    COS_COL_EVENING_COOKING_ID("evening_cooking_id"),
+    COS_COL_COOKING_ID("cooking_id"),
+    COS_TENTATIVE("cookingSlaveTentative"),
+    COS_TENTATIVE_LENGTH("tentativeLength"),
+
+
+
     //メニュー管理
     MENU("menu"),
     MENUS("menus"),
     MEN_ID("id"),
-    MENUDATE_START("menudate_strat"),
-    MUNUDATE_END("menudate_end");
+    MEN_COUNT("menus_count"),
+    MENU_DATE_START("start_date"),
+    MENU_DATE_END("end_date"),
+    MENU_MORNING_AMOUNT("morning_amount"),
+    MENU_NOON_AMOUNT("noon_amount"),
+    MENU_EVENING_AMOUNT("evening_amount");
 
 
 

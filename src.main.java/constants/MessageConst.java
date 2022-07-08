@@ -23,8 +23,13 @@ public enum MessageConst {
     E_MATM_NAME_EXIST("入力された材料名は既に存在しています"),
     E_MAT_NOAMOUNT("正常な値を入力してください。"),
     E_COO_NONAME("料理名を入力してください。"),
-    E_COO_NAME_EXIST("入力された料理名は既に存在しています");
-
+    E_COO_NAME_EXIST("入力された料理名は既に存在しています"),
+    E_MENU_NOMORNING("「朝の料理の種類」欄には0以上の数値を入力してください"),
+    E_MENU_NONOON("「昼の料理の種類」欄には0以上の数値を入力してください"),
+    E_MENU_EVENING("「夕の料理の種類」欄には0以上の数値を入力してください"),
+    E_MENU_NOSTART("開始日を入力してください"),
+    E_MENU_NOEND("終了日を入力してください"),
+    E_MENU_NODATE("開始日が終了日を過ぎています");
 
     /**
      *文字列

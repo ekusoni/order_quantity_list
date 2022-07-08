@@ -34,6 +34,7 @@ public enum ForwardConst {
     CMD_ADDITION("addition"),
     CMD_INCREASE("increase"),
     CMD_GAIN("gain"),
+    CMD_SEARCH("search"),
 
     //jsp
     FW_ERR_UNKNOWN("error/unknown"),
@@ -44,17 +45,19 @@ public enum ForwardConst {
     FW_USE_EDIT("users/edit"),
     FW_MATM_INDEX("materialMasters/index"),
     FW_MATM_NEW("materialMasters/new"),
-    FW_COO_NEW("cooking/new"),
-    FW_COO_INDEX("cooking/index"),
-    FW_COO_NEXT("cooking/next"),
-    FW_COO_SHOW("cooking/show"),
-    FW_COO_EDIT("cooking/edit"),
-    FW_COO_ADD("cooking/addition"),
-    FW_COO_INC("cooking/increase"),
-    FW_MEN_SELECT("menus/select"),
+    FW_COO_NEW("cookings/new"),
+    FW_COO_INDEX("cookings/index"),
+    FW_COO_NEXT("cookings/next"),
+    FW_COO_SHOW("cookings/show"),
+    FW_COO_EDIT("cookings/edit"),
+    FW_COO_ADD("cookings/addition"),
+    FW_COO_INC("cookings/increase"),
     FW_MEN_NEW("menus/new"),
     FW_MEN_INDEX("menus/index"),
-    FW_MEE_SHOW("menus/show"),
+    FW_MEN_SHOW("menus/show"),
+    FW_MEN_NEXT("menus/next"),
+    FW_MEN_EDIT("menus/edit"),
+    FW_MEN_ADD("menus/addition"),
 
 
     FW_LOGIN("login/login");
