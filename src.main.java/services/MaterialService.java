@@ -12,6 +12,10 @@ import models.Material;
  */
 public class MaterialService extends ServiceBase {
 
+    /**
+     * 詳細画面等の表示の時に必要な材料(量)の全データを取得し、MaterialViewのリストで返却する
+     * @return 表示するデータのリスト
+     */
     public List<MaterialView> getPage(){
         List<Material> materials=em.createNamedQuery(JpaConst.Q_MAT_GET_ALL,Material.class)
                 .getResultList();
@@ -50,7 +54,7 @@ public class MaterialService extends ServiceBase {
      */
     public void create(MaterialView mv) {
 
-        em.getTransaction().begin();;
+        em.getTransaction().begin();
         em.persist(MaterialConverter.toModel(mv));
         em.getTransaction().commit();
 
