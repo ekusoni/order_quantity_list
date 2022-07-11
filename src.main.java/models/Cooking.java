@@ -33,7 +33,10 @@ import lombok.Setter;
             query=JpaConst.Q_COO_COUNT_RESISTERED_BY_NAME_DEF),
     @NamedQuery(
             name=JpaConst.Q_COO_GET_BY_NAME,
-            query=JpaConst.Q_COO_GET_BY_NAME_DEF)
+            query=JpaConst.Q_COO_GET_BY_NAME_DEF),
+    @NamedQuery(
+            name=JpaConst.Q_COO_SEARCH_BY_NAME,
+            query=JpaConst.Q_COO_SEARCH_BY_NAME_DEF)
 
 })
 
