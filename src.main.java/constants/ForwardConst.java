@@ -35,6 +35,7 @@ public enum ForwardConst {
     CMD_INCREASE("increase"),
     CMD_GAIN("gain"),
     CMD_SEARCH("search"),
+    CMD_TOP("top"),
 
     //jsp
     FW_ERR_UNKNOWN("error/unknown"),
@@ -45,6 +46,8 @@ public enum ForwardConst {
     FW_USE_EDIT("users/edit"),
     FW_MATM_INDEX("materialMasters/index"),
     FW_MATM_NEW("materialMasters/new"),
+    FW_MATM_SHOW("materialMasters/show"),
+    FW_MATM_EDIT("materialMasters/edit"),
     FW_COO_NEW("cookings/new"),
     FW_COO_INDEX("cookings/index"),
     FW_COO_NEXT("cookings/next"),

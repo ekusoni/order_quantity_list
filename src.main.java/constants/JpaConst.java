@@ -68,6 +68,7 @@ public interface JpaConst {
     String MENU_COL_ID="id";//id
     String MENU_COL_START_DATE="start_date";//メニューの開始日
     String MENU_COL_END_DATE="end_date";//メニューの終了日
+    String MEN_COL_DISPLAY="top_display";//メニューのトップ画面選定
 
     //Entity名
     String ENTITY_USE="user";//利用者
@@ -84,6 +85,7 @@ public interface JpaConst {
     String JPQL_PARM_NAME="name";//材料名
     String JPQL_PARM_UNIT="unit";//単位
     String JPQL_PARM_ID="id";//id
+    String JPQL_PARM_DISPLAY="top_display";
 
 
 
@@ -124,12 +126,18 @@ public interface JpaConst {
    //全ての料理の件数を取得する
     String Q_COO_COUNT=ENTITY_COO+".count";
     String Q_COO_COUNT_DEF="SELECT COUNT(c) FROM Cooking AS c";
+
+    String Q_MAT_SEARCH_BY_MATM_NAME=ENTITY_MAT+".name";
+    String Q_MAT_SEARCH_BY_MATM_NAME_DEF="SELECT m FROM Material AS m WHERE m.materialMaster.name LIKE :"+JPQL_PARM_NAME+" ORDER BY m.cooking.id DESC,m.materialMaster.id DESC";
     //指定した料理名を保持する料理の件数を取得する
     String Q_COO_COUNT_RESISTERED_BY_NAME=ENTITY_COO+".countRegisteredByName";
     String Q_COO_COUNT_RESISTERED_BY_NAME_DEF="SELECT COUNT(c) FROM Cooking AS c WHERE c.name=:"+JPQL_PARM_NAME;
     //指定した料理名を条件に料理を取得する
     String Q_COO_GET_BY_NAME=ENTITY_COO+".getByName";
     String Q_COO_GET_BY_NAME_DEF="SELECT c FROM Cooking AS c WHERE c.name=:"+JPQL_PARM_NAME;
+    //指定した料理名を保持する料理をidの降順に取得する
+    String Q_COO_SEARCH_BY_NAME=ENTITY_COO+"getByName";
+    String Q_COO_SEARCH_BY_NAME_DEF="SELECT c FROM Cooking  AS c WHERE c.name LIKE :"+JPQL_PARM_NAME+" ORDER BY c.id DESC";
     //全ての料理(量)をidの昇順に取得する
     String Q_COS_GET_ALL=ENTITY_COS+".getAll";
     String Q_COS_GET_ALL_DEF="SELECT cs FROM CookingSlave AS cs ORDER BY cs.id";
@@ -145,7 +153,9 @@ public interface JpaConst {
     //メニューのidが一番大きいのを取得する
     String Q_MEN_GET_BY_MAXID=ENTITY_MEN+".getById";
     String Q_MEN_GET_BY_MAXID_DEF="SELECT m FROM Menu AS m WHERE m.id=(SELECT MAX(m.id) From Menu AS m)";
-
+    //指定した番号を保持するメニューの件数を取得する
+    String Q_MEN_COUNT_RESISTERED_BY_TOPDISPLAY=ENTITY_USE+".countRegisteredByTopDisplay";
+    String Q_MEN_COUNT_RESISTERED_BY_TOPDISPLAY_DEF="SELECT COUNT(m) FROM Menu AS m WHERE m.topDisplay=:"+JPQL_PARM_DISPLAY;
 
 
 }
