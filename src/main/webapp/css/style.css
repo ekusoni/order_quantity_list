@@ -150,17 +150,17 @@ table#material_list .material_unit{
     width: 20%;
 }
 
-table#material_list_search th{
+table#materialMaster_list_search th{
     font-weight: bold;
     padding: 10px 2%;
 }
 
-table#material_list_search .material_name{
+table#materialMaster_list_search .material_name{
     width: 20%;
     padding: 10px 2%;
 }
 
-table#material_list_search .material_unit{
+table#materialMaster_list_search .material_unit{
     width: 20%;
 }
 
@@ -182,6 +182,35 @@ table#cooking_list .cooking_action{
     width: 20%;
 }
 
+table#cooking_list_search th{
+    font-weight: bold;
+    padding: 10px 2%
+}
+
+table#cooking_list_search .cooking_name{
+    width: 30%;
+    padding: 10px 2%;
+}
+
+
+table#cooking_list_search .cooking_action{
+    width: 20%;
+}
+
+table#material_list_search th{
+    font-weight: bold;
+    padding: 10px 2%
+}
+
+table#material_list_search .cooking_name{
+    width: 30%;
+    padding: 10px 2%;
+}
+
+
+table#material_list_search .cooking_action{
+    width: 20%;
+}
 .cooking_material{
     width: 50%;
 }
