@@ -65,6 +65,7 @@ public enum AttributeConst {
     MATERIALS("materials"),
     MAT_TENTATIVE("materialTentative"),
     MAT_TENTATIVE_LENGTH("tentativeLength"),
+    SEARCH_MATERIALS("searchMaterials"),
 
     //料理管理
     COOKING("cooking"),
@@ -72,6 +73,8 @@ public enum AttributeConst {
     COO_COUNT("cookings_count"),
     COO_ID("id"),
     COO_NAME("name"),
+    SEARCH_COOKINGS("searchCookings"),
+    COO_WORD("word"),
 
     //料理(量)管理
     COOKINGSL("cookingSlave"),
