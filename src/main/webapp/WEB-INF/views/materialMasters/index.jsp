@@ -6,6 +6,7 @@
 <c:set var="actMatM" value="${ForwardConst.ACT_MATM.getValue()}" />
 <c:set var="commIdx" value="${ForwardConst.CMD_INDEX.getValue()}" />
 <c:set var="commNew" value="${ForwardConst.CMD_NEW.getValue()}" />
+<c:set var="commShow" value="${ForwardConst.CMD_SHOW.getValue()}" />
 <c:set var="commSea" value="${ForwardConst.CMD_SEARCH.getValue()}" />
 
 <c:import url="/WEB-INF/views/layout/app.jsp">
@@ -17,7 +18,7 @@
         </c:if>
         <h2>材料 一覧</h2>
         <form method="POST" action="<c:url value='?action=${actMatM}&command=${commSea}' />">
-           <input type="radio" name="${AttributeConst.MATERIALM.getValue()}" value="name" required>料理名
+           <input type="radio" name="${AttributeConst.MATERIALM.getValue()}" value="name" required>材料名
            <input type="radio" name="${AttributeConst.MATERIALM.getValue()}" value="unit">単位
            <input type="text" name="${AttributeConst.MATM_WORD.getValue()}" value="${materialMaster.name}" />
         <button type="submit">検索</button><br /><br />
@@ -26,16 +27,18 @@
         <c:if test="${searchMaterialMasters != null}">
             <h3>材料検索結果</h3>
 
-        <table id="material_list_search">
+        <table id="materialMaster_list_search">
             <tbody>
                 <tr>
                     <th class="materialMaster_name">材料名</th>
                     <th class="materialMaster_unit">単位</th>
+                    <th class="materialMaster_action">操作</th>
                 </tr>
                 <c:forEach var="searchMaterialMaster" items="${searchMaterialMasters}" varStatus="status">
                     <tr class="row${status.count % 2}">
                         <td class="materialMaster_name"><c:out value="${searchMaterialMaster.name}" /></td>
                         <td class="materialMaster_unit"><c:out value="${searchMaterialMaster.unit}" /></td>
+                        <td class="materialMaster_action"><a href="<c:url value='?action=${actMatM}&command=${commShow}&id=${searchMaterialMaster.id}' />">詳細を見る</a></td>
                     </tr>
                 </c:forEach>
             </tbody>
@@ -47,11 +50,13 @@
                 <tr>
                     <th class="materialMaster_name">材料名</th>
                     <th class="materialMaster_unit">単位</th>
+                    <th class="materialMaster_action">操作</th>
                 </tr>
                 <c:forEach var="materialMaster" items="${materialMasters}" varStatus="status">
                     <tr class="row${status.count % 2}">
                         <td class="materialMaster_name"><c:out value="${materialMaster.name}" /></td>
                         <td class="materialMaster_unit"><c:out value="${materialMaster.unit}" /></td>
+                        <td class="materialMaster_action"><a href="<c:url value='?action=${actMatM}&command=${commShow}&id=${materialMaster.id}' />">詳細を見る</a></td>
                     </tr>
                 </c:forEach>
             </tbody>
