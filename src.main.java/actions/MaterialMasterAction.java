@@ -6,14 +6,11 @@ import java.util.List;
 import javax.servlet.ServletException;
 
 import actions.views.MaterialMasterView;
-import actions.views.UserView;
 import constants.AttributeConst;
 import constants.ForwardConst;
 import constants.JpaConst;
 import constants.MessageConst;
 import services.MaterialMasterService;
-
-
 
 public class MaterialMasterAction extends ActionBase {
 
@@ -21,9 +18,10 @@ public class MaterialMasterAction extends ActionBase {
      * メソッドを実行する
      */
     private MaterialMasterService service;
+
     @Override
     public void process() throws ServletException, IOException {
-        service=new MaterialMasterService();
+        service = new MaterialMasterService();
 
         //メソッドを実行
         invoke();
@@ -39,7 +37,7 @@ public class MaterialMasterAction extends ActionBase {
      */
     public void index() throws ServletException, IOException {
 
-        //閲覧者かどうかのチェック
+        //作成者かどうかのチェック
         if (checkAuthor()) {
 
             //指定されたページ数の一覧画面に表示するデータを取得
@@ -62,9 +60,9 @@ public class MaterialMasterAction extends ActionBase {
             }
 
             //セッションに検索結果が設定されている場合はリクエストスコープに移し替えセッションから削除する
-            List<MaterialMasterView> searchMaterialMasters= getSessionScope(AttributeConst.SEARCHMATERIALMS);
+            List<MaterialMasterView> searchMaterialMasters = getSessionScope(AttributeConst.SEARCHMATERIALMS);
             if (searchMaterialMasters != null) {
-                putRequestScope(AttributeConst.SEARCHMATERIALMS,searchMaterialMasters);
+                putRequestScope(AttributeConst.SEARCHMATERIALMS, searchMaterialMasters);
                 removeSessionScope(AttributeConst.SEARCHMATERIALMS);
             }
 
@@ -80,7 +78,7 @@ public class MaterialMasterAction extends ActionBase {
      */
     public void entryNew() throws ServletException, IOException {
 
-        //閲覧者かどうかのチェック
+        //作成者かどうかのチェック
         if (checkAuthor()) {
             putRequestScope(AttributeConst.TOKEN, getTokenId());//CSRF対策用トークン
             putRequestScope(AttributeConst.MATERIALM, new MaterialMasterView());//空の材料インスタンス
@@ -97,9 +95,8 @@ public class MaterialMasterAction extends ActionBase {
      */
     public void create() throws ServletException, IOException {
 
-
         //CSRF対策tokenのチェック
-        if (checkAuthor()) {
+        if (checkAuthor() && checkToken()) {
 
             //パラメータの値を元に材料情報のインスタンスを作成する
             MaterialMasterView mmv = new MaterialMasterView(
@@ -107,35 +104,125 @@ public class MaterialMasterAction extends ActionBase {
                     getRequestParam(AttributeConst.MATM_NAME),
                     getRequestParam(AttributeConst.MATM_UNIT));
 
-
-
-
-
             //材料情報登録
-            List<String> errors=service.create(mmv);
+            List<String> errors = service.create(mmv);
 
-            if(errors.size() > 0) {
+            if (errors.size() > 0) {
                 //登録中にエラーがあった場合
-                putRequestScope(AttributeConst.TOKEN,getTokenId());//CSRF対策用トークン
-                putRequestScope(AttributeConst.MATERIALM,mmv);//入力された材料情報
-                putRequestScope(AttributeConst.ERR,errors);//エラーのリスト
-
+                putRequestScope(AttributeConst.TOKEN, getTokenId());//CSRF対策用トークン
+                putRequestScope(AttributeConst.MATERIALM, mmv);//入力された材料情報
+                putRequestScope(AttributeConst.ERR, errors);//エラーのリスト
 
                 //新規登録画面を再表示
                 forward(ForwardConst.FW_MATM_NEW);
 
-            }else {
+            } else {
                 //登録中にエラーがなかった場合
 
                 //セッションに登録完了のフラッシュメッセージを設定
-                putRequestScope(AttributeConst.FLUSH,MessageConst.I_REGISTERED.getMessage());
+                putRequestScope(AttributeConst.FLUSH, MessageConst.I_REGISTERED.getMessage());
+
+                //一覧画面にリダイレクト
+                redirect(ForwardConst.ACT_MATM, ForwardConst.CMD_INDEX);
+            }
+
+        }
+    }
+
+    /**
+     * 詳細を見る
+     * @throws ServletException
+     * @throws IOException
+     */
+    public void show() throws ServletException, IOException {
+
+        if (checkAuthor()) {
+            //idを条件に材料データを取得する
+            MaterialMasterView mmv = service.findOne(toNumber(getRequestParam(AttributeConst.MATM_ID)));
+
+            if (mmv == null) {
+
+                //データが取得できなかった場合はエラー画面を表示
+                forward(ForwardConst.FW_ERR_UNKNOWN);
+
+                return;
+            }
+
+            putRequestScope(AttributeConst.MATERIALM, mmv);
+
+            //詳細画面を表示
+            forward(ForwardConst.FW_MATM_SHOW);
+
+        }
+
+    }
+
+    public void edit() throws ServletException, IOException{
+
+        if(checkAuthor()) {
+          //idを条件に材料データを取得する
+            MaterialMasterView mmv = service.findOne(toNumber(getRequestParam(AttributeConst.MATM_ID)));
+
+            if(mmv ==null) {
+              //データが取得できなかった場合はエラー画面を表示
+              forward(ForwardConst.FW_ERR_UNKNOWN);
+              return;
+            }
+
+            putRequestScope(AttributeConst.TOKEN,getTokenId());//CSRF対策用トークン
+            putRequestScope(AttributeConst.MATERIALM,mmv);//取得した材料情報
+
+
+            //編集画面を表示する
+            forward(ForwardConst.FW_MATM_EDIT);
+        }
+
+    }
+
+    /**
+     * 更新を行う
+     * @throws ServletException
+     * @throws IOException
+     */
+    public void update() throws ServletException,IOException{
+
+        if(checkAuthor() && checkToken()) {
+
+            //パラメータの値を元に材料情報のインスタンスを作成する
+            MaterialMasterView mmv= new MaterialMasterView(
+                    toNumber(getRequestParam(AttributeConst.MATM_ID)),
+                    getRequestParam(AttributeConst.MATM_NAME),
+                    getRequestParam(AttributeConst.MATM_UNIT));
+
+
+            //材料情報更新
+            List<String> errors=service.update(mmv);
+
+            if(errors.size() >0) {
+
+                //更新中にエラーが発生した場合
+                putRequestScope(AttributeConst.TOKEN,getTokenId());//CSRF対策用トークン
+                putRequestScope(AttributeConst.MATERIALM,mmv);//入力された材料情報
+                putRequestScope(AttributeConst.ERR,errors);//エラーのリスト
+
+                //編集画面を再表示
+                forward(ForwardConst.FW_MATM_EDIT);
+
+
+            }else {
+                //更新中にエラーが無かった場合
+
+                //セッションに更新完了のフラッシュメッセージを設定
+                putSessionScope(AttributeConst.FLUSH,MessageConst.I_UPDATED.getMessage());
 
                 //一覧画面にリダイレクト
                 redirect(ForwardConst.ACT_MATM,ForwardConst.CMD_INDEX);
             }
 
-
         }
+
+
+
     }
 
     /**
@@ -143,61 +230,30 @@ public class MaterialMasterAction extends ActionBase {
      * @throws ServletException
      * @throws IOException
      */
-    public void search() throws ServletException, IOException{
+    public void search() throws ServletException, IOException {
 
-        if(checkAuthor()) {
+        //作成者かどうかのチェック
+        if (checkAuthor()) {
             //MATERIALMの中身によって処理を分ける
-            if(getRequestParam(AttributeConst.MATERIALM).equals("name")) {
-                String name=getRequestParam(AttributeConst.MATM_WORD);
-                if(name != "") {
-                    List<MaterialMasterView> searchMaterialMasters=service.searchName(name);
-                    putSessionScope(AttributeConst.SEARCHMATERIALMS,searchMaterialMasters);
+            if (getRequestParam(AttributeConst.MATERIALM).equals("name")) {
+                String name = getRequestParam(AttributeConst.MATM_WORD);
+                if (name != "") {
+                    List<MaterialMasterView> searchMaterialMasters = service.searchName(name);
+                    putSessionScope(AttributeConst.SEARCHMATERIALMS, searchMaterialMasters);
                 }
-            }else if(getRequestParam(AttributeConst.MATERIALM).equals("unit")) {
-                String unit=getRequestParam(AttributeConst.MATM_WORD);
-                if(unit != "") {
-                    List<MaterialMasterView> searchMaterialMasters=service.searchUnit(unit);
-                    putSessionScope(AttributeConst.SEARCHMATERIALMS,searchMaterialMasters);
-
-
+            } else if (getRequestParam(AttributeConst.MATERIALM).equals("unit")) {
+                String unit = getRequestParam(AttributeConst.MATM_WORD);
+                if (unit != "") {
+                    List<MaterialMasterView> searchMaterialMasters = service.searchUnit(unit);
+                    putSessionScope(AttributeConst.SEARCHMATERIALMS, searchMaterialMasters);
 
                 }
 
             }
 
-
-
-
-
             //一覧画面にリダイレクト
-            redirect(ForwardConst.ACT_MATM,ForwardConst.CMD_INDEX);
-        }
-    }
-
-
-
-
-    /**
-     * ログイン中の利用者が作成者かどうかチェックし、作成者でなければエラー画面を表示
-     * true: 作成者 false: 作成者ではない
-     * @throws ServletException
-     * @throws IOException
-     */
-
-    private boolean checkAuthor() throws ServletException, IOException {
-        //セッションからログイン中の利用者情報を取得
-        UserView uv = (UserView) getSessionScope(AttributeConst.LOGIN_USE);
-
-        //閲覧者でなければエラー画面を表示
-        if (uv.getAuthorFlag() != AttributeConst.ROLE_AUTHOR.getIntegerValue()) {
-
-            forward(ForwardConst.FW_ERR_UNKNOWN);
-            return false;
-        } else {
-            return true;
+            redirect(ForwardConst.ACT_MATM, ForwardConst.CMD_INDEX);
         }
     }
 
 }
-
-

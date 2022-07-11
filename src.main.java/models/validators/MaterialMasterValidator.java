@@ -12,11 +12,12 @@ import services.MaterialMasterService;
  */
 public class MaterialMasterValidator {
 
-    public static List<String> validate(MaterialMasterService service, MaterialMasterView mmv) {
+    public static List<String> validate(MaterialMasterService service, MaterialMasterView mmv,
+            Boolean nameDuplicateCheckFlag) {
         List<String> errors = new ArrayList<String>();
 
         //材料名のチェック
-        String nameError = validateName(service, mmv.getName());
+        String nameError = validateName(service, mmv.getName(), nameDuplicateCheckFlag);
         if (!nameError.equals("")) {
             errors.add(nameError);
         }
@@ -36,24 +37,28 @@ public class MaterialMasterValidator {
      * @param service MaterialMasterServiceのインスタンス
      * @param name 材料名
      */
-    private static String validateName(MaterialMasterService service, String name) {
+    private static String validateName(MaterialMasterService service, String name, Boolean nameDuplicateCheckFlag) {
 
         //入力値がなければエラーメッセージを返却する
         if (name == null || name.equals("")) {
             return MessageConst.E_MATM_NONAME.getMessage();
         }
 
-        long materialmastersCount = isDuplicateMaterialMaster(service, name);
+        if (nameDuplicateCheckFlag) {
 
-        //同一材料名が既に登録されている場合はエラーメッセージを返却
-        if (materialmastersCount > 0) {
-            return MessageConst.E_MATM_NAME_EXIST.getMessage();
+            //材料名の重複チェックを実施
+            long materialmastersCount = isDuplicateMaterialMaster(service, name);
+
+            //同一材料名が既に登録されている場合はエラーメッセージを返却
+            if (materialmastersCount > 0) {
+                return MessageConst.E_MATM_NAME_EXIST.getMessage();
+            }
+
         }
 
         //エラーが無い場合は空文字を返却
         return "";
     }
-
 
     /**
      * @param service MaterialMasterServiceのインスタンス

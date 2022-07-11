@@ -113,7 +113,7 @@ public class MaterialMasterService extends ServiceBase{
 
 
         //登録内容のバリテーションを行う
-        List<String> errors=MaterialMasterValidator.validate(this, mmv);
+        List<String> errors=MaterialMasterValidator.validate(this, mmv,true);
 
         //バリデーションエラーがなければデータを登録する
         if(errors.size()== 0) {
@@ -123,6 +123,34 @@ public class MaterialMasterService extends ServiceBase{
         //エラーを返却(エラーがなければ0件の空リスト)
         return errors;
 
+    }
+
+    public List<String> update(MaterialMasterView mmv){
+
+        //idを条件に登録済みの材料情報を取得する
+        MaterialMasterView savedMatM=findOne(mmv.getId());
+
+        boolean validateName= false;
+        if(!savedMatM.getName().equals(mmv.getName())) {
+            //材料名を変更する場合
+
+            //料理名についてのバリデーションを行う
+            validateName=true;
+            savedMatM.setName(mmv.getName());
+        }
+
+        savedMatM.setUnit(mmv.getUnit());//変更後の単位を設定する
+
+        //更新内容についてバリデーションを行う
+        List<String> errors=MaterialMasterValidator.validate(this, mmv,validateName);
+
+        //バリデーションエラーがなければデータを更新する
+        if(errors.size() ==0) {
+            updateInternal(savedMatM);
+        }
+
+        //エラーを返却(エラーがなければ0件の空リスト)
+        return errors;
     }
 
 
@@ -144,6 +172,16 @@ public class MaterialMasterService extends ServiceBase{
         em.getTransaction().begin();
         em.persist(MaterialMasterConverter.toModel(mmv));
         em.getTransaction().commit();
+    }
+
+    private void updateInternal(MaterialMasterView mmv) {
+
+        em.getTransaction().begin();
+        MaterialMaster mm=findOneInternal(mmv.getId());
+        MaterialMasterConverter.copyViewToModel(mm, mmv);
+        em.getTransaction().commit();
+
+
     }
 
 }
