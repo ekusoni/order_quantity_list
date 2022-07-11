@@ -2,11 +2,13 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page import="constants.ForwardConst" %>
+<%@ page import="constants.AttributeConst" %>
 
 <c:set var="actMen" value="${ForwardConst.ACT_MENU.getValue()}" />
 <c:set var="commIdx" value="${ForwardConst.CMD_INDEX.getValue()}" />
 <c:set var="commEdt" value="${ForwardConst.CMD_EDIT.getValue()}" />
 <c:set var="commAdd" value="${ForwardConst.CMD_ADDITION.getValue()}" />
+<c:set var="commTop" value="${ForwardConst.CMD_TOP.getValue()}" />
 
 
 <c:import url="/WEB-INF/views/layout/app.jsp">
@@ -41,6 +43,13 @@
             <c:out value="${cookingSlave.amount }" />個
         </c:if>
     </c:forEach>
+
+    <c:if test="${menu.topDisplay=='no'}">
+        <form method="POST" action="<c:url value='?action=${actMen}&command=${commTop}' />">
+            <input type="hidden" name="${AttributeConst.MEN_ID.getValue()}" value="${menu.id}" />
+            <button type="submit">トップメニューに登録</button>
+        </form>
+    </c:if>
 
     <p>
         <a href="<c:url value='?action=${actMen}&command=${commEdt}&id=${menu.id}' />">このメニューを編集する</a>
