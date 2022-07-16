@@ -15,7 +15,11 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-
+/**
+ * 材料テーブルのDTOモデル
+ *
+ *
+ */
 @Table(name=JpaConst.TABLE_MATM)
 @NamedQueries({
     @NamedQuery(

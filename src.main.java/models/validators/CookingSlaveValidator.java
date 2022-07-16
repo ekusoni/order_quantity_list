@@ -22,6 +22,8 @@ public class CookingSlaveValidator {
 
     /**
      * 数値かどうかチェックし、数値では無かったならばエラーメッセージを返却
+     * @param 量
+     * @return エラーメッセージ
      */
     private static String validateAmount(Integer amount) {
         if(amount <=0) {

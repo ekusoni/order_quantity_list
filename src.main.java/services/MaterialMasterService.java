@@ -125,6 +125,11 @@ public class MaterialMasterService extends ServiceBase{
 
     }
 
+    /**
+     * 画面から入力された材料の更新内容をもとにデータを1件作成し、材料テーブルを更新する
+     * @param mmv 画面から入力された材料の登録内容
+     * @return バリデーションや更新処理中に発生したエラーのリスト
+     */
     public List<String> update(MaterialMasterView mmv){
 
         //idを条件に登録済みの材料情報を取得する
@@ -174,6 +179,10 @@ public class MaterialMasterService extends ServiceBase{
         em.getTransaction().commit();
     }
 
+    /**
+     * 材料データを更新する
+     * @param mmv 画面から入力された材料の登録内容
+     */
     private void updateInternal(MaterialMasterView mmv) {
 
         em.getTransaction().begin();

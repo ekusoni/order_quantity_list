@@ -11,6 +11,10 @@ import constants.MessageConst;
 import constants.PropertyConst;
 import services.UserService;
 
+/**
+ * 認証に関する処理を行うActionクラス
+ *
+ */
 public class AuthAction extends ActionBase {
 
     private UserService service;

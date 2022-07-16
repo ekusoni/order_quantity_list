@@ -17,6 +17,10 @@ public class UserAction extends ActionBase {
 
     private UserService service;
 
+    /**
+     * 利用者に関わる処理を行うActionクラス
+     */
+
     @Override
     public void process() throws ServletException, IOException {
         service = new UserService();

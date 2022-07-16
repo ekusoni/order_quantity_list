@@ -16,6 +16,12 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+/**
+ * 料理テーブルのDTOモデル(CookingViewに量を加えた)
+ *
+ *
+ */
 @Table(name=JpaConst.TABLE_COS)
 @NamedQueries({
     @NamedQuery(
@@ -24,6 +30,7 @@ import lombok.Setter;
     @NamedQuery(
             name=JpaConst.Q_COS_GET_BY_MENU_ID,
             query=JpaConst.Q_COS_GET_BY_MENU_ID_DEF)
+
 })
 
 @Getter//全てのクラスフィールドについてgetterを自動生成する(Lombok)

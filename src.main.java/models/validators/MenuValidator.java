@@ -16,7 +16,7 @@ public class MenuValidator {
 
     /**
      * メニューインスタンスのバリデーションを行う
-     * @param mv メニューインスタンス
+     * @param mv メニューのインスタンス
      * @return エラー
      */
     public static List<String> validate(MenuView mv) {
@@ -33,6 +33,13 @@ public class MenuValidator {
 
 
     }
+
+    /**
+     * 開始日が終了日の前かどうかのチェックをし、後だったらエラーメッセージを返す
+     * @param startDate 開始日
+     * @param endDate 終了日
+     * @return エラーメッセージ
+     */
 
     private static String validateStartEnd(LocalDate startDate, LocalDate endDate) {
         if(startDate.isAfter(endDate)) {

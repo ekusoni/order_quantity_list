@@ -43,6 +43,19 @@ public class CookingService extends ServiceBase {
         return CookingConverter.toViewList(cookings);
     }
 
+    /**
+     * 指定された料理名を条件にデータを取得し、CookingViewのリストで返却する
+     * @param name 料理名
+     * @return 表示するデータのリスト
+     */
+    public List<CookingView> searchName(String name){
+        List<Cooking> cookings=em.createNamedQuery(JpaConst.Q_COO_SEARCH_BY_NAME, Cooking.class)
+                .setParameter(JpaConst.JPQL_PARM_NAME, name+"%")
+                .getResultList();
+
+        return CookingConverter.toViewList(cookings);
+
+    }
 
 
 
