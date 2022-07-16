@@ -70,6 +70,7 @@ public interface JpaConst {
     String MENU_COL_END_DATE="end_date";//メニューの終了日
     String MEN_COL_DISPLAY="top_display";//メニューのトップ画面選定
 
+
     //Entity名
     String ENTITY_USE="user";//利用者
     String ENTITY_MATM="materialMaster";//材料(材料名と単位)
@@ -86,6 +87,7 @@ public interface JpaConst {
     String JPQL_PARM_UNIT="unit";//単位
     String JPQL_PARM_ID="id";//id
     String JPQL_PARM_DISPLAY="top_display";
+    String JPQL_PARM_ID_COO="coo_id";
 
 
 
@@ -120,15 +122,15 @@ public interface JpaConst {
     //全ての材料(量)をidの昇順に取得する
     String Q_MAT_GET_ALL=ENTITY_MAT+".getAll";
     String Q_MAT_GET_ALL_DEF="SELECT m FROM Material AS m ORDER BY m.id";
+    //指定した材料名を保持する料理のidを降順に並べて、材料のidで降順に並べる。
+    String Q_MAT_SEARCH_BY_MATM_NAME=ENTITY_MAT+".name";
+    String Q_MAT_SEARCH_BY_MATM_NAME_DEF="SELECT m FROM Material AS m WHERE m.materialMaster.name LIKE :"+JPQL_PARM_NAME+" ORDER BY m.cooking.id DESC,m.materialMaster.id DESC";
     //全ての料理をidの降順に取得する
     String Q_COO_GET_ALL=ENTITY_COO+".getAll";
     String Q_COO_GET_ALL_DEF="SELECT c FROM Cooking AS c ORDER BY c.id  DESC";
    //全ての料理の件数を取得する
     String Q_COO_COUNT=ENTITY_COO+".count";
     String Q_COO_COUNT_DEF="SELECT COUNT(c) FROM Cooking AS c";
-
-    String Q_MAT_SEARCH_BY_MATM_NAME=ENTITY_MAT+".name";
-    String Q_MAT_SEARCH_BY_MATM_NAME_DEF="SELECT m FROM Material AS m WHERE m.materialMaster.name LIKE :"+JPQL_PARM_NAME+" ORDER BY m.cooking.id DESC,m.materialMaster.id DESC";
     //指定した料理名を保持する料理の件数を取得する
     String Q_COO_COUNT_RESISTERED_BY_NAME=ENTITY_COO+".countRegisteredByName";
     String Q_COO_COUNT_RESISTERED_BY_NAME_DEF="SELECT COUNT(c) FROM Cooking AS c WHERE c.name=:"+JPQL_PARM_NAME;
@@ -156,6 +158,12 @@ public interface JpaConst {
     //指定した番号を保持するメニューの件数を取得する
     String Q_MEN_COUNT_RESISTERED_BY_TOPDISPLAY=ENTITY_USE+".countRegisteredByTopDisplay";
     String Q_MEN_COUNT_RESISTERED_BY_TOPDISPLAY_DEF="SELECT COUNT(m) FROM Menu AS m WHERE m.topDisplay=:"+JPQL_PARM_DISPLAY;
+
+    //指定した料理idと材料idを持つ材料の数量を取得する
+    String Q_MAT_SUM_AMOUNT_BY_MATM_ID_AND_COO_ID_DEF="SELECT NEW models.MaterialGroupBy(m.materialMaster.id,m.cooking.id,SUM(m.amount)) FROM Material AS m WHERE m.materialMaster.id=:"+JPQL_PARM_ID+" AND m.cooking.id=:"+JPQL_PARM_ID_COO+" GROUP BY m.materialMaster.id,m.cooking.id";
+    //材料の料理idと材料idが重複している物を除いて取得する
+    String Q_MAT_DISTINCT_MATM_ID_AND_COO_ID_DEF="SELECT DISTINCT NEW models.MaterialDistinct(m.materialMaster.id,m.cooking.id) FROM Material AS m";
+
 
 
 }
