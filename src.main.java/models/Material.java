@@ -17,11 +17,23 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+/**
+ * 材料テーブルのDTOモデル(MaterialMasterViewに量を加えた)
+ *
+ *
+ */
 @Table(name=JpaConst.TABLE_MAT)
 @NamedQueries({
     @NamedQuery(
             name=JpaConst.Q_MAT_GET_ALL,
-            query=JpaConst.Q_MAT_GET_ALL_DEF)
+            query=JpaConst.Q_MAT_GET_ALL_DEF),
+    @NamedQuery(
+            name=JpaConst.Q_MAT_SEARCH_BY_MATM_NAME,
+            query=JpaConst.Q_MAT_SEARCH_BY_MATM_NAME_DEF)
+
+
+
+
 
 })
 @Getter//全てのクラスフィールドについてgetterを自動生成する(Lombok)
