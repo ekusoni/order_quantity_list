@@ -24,6 +24,7 @@
                     <th class="menu_endDate">終了日</th>
                     <th class="menu_cooking">料理</th>
                     <th class="menu_cooking">料理</th>
+                    <th class="menu_topPage">トップページ(最大2つまで)</th>
                     <th class="menu_action">操作</th>
                 </tr>
                 <c:forEach var="menu" items="${menus}" varStatus="status">
@@ -57,6 +58,17 @@
                             <c:if test="${menu.id ==cookingSlave.menu.id && count == 1}"><c:set var="count" value="2" /></c:if>
                         </c:forEach>
                         </td>
+                        <td class="menu_topPage">
+                            <c:choose>
+                                <c:when test="${menu.topDisplay=='one'}">
+                                    上に登録済み
+                                </c:when>
+                                <c:when test="${menu.topDisplay=='two'}">
+                                    下に登録済み
+                                </c:when>
+                                <c:otherwise>未登録</c:otherwise>
+                            </c:choose>
+                        </td>
                         <td class="menu_action"><a href="<c:url value='?action=${actMen}&command=${commShow}&id=${menu.id}' />">詳細を見る</a></td>
                     </tr>
                 </c:forEach>
@@ -77,6 +89,8 @@
                 </c:choose>
             </c:forEach>
         </div>
-        <p><a href="<c:url value='?action=${actMen}&command=${commNew}' />">新規メニューの登録</a></p>
+        <c:if test="${cookings.size() != 0 && sessionScope.login_user.authorFlag==AttributeConst.ROLE_AUTHOR.getIntegerValue()}">
+            <p><a href="<c:url value='?action=${actMen}&command=${commNew}' />">新規メニューの登録</a></p>
+        </c:if>
     </c:param>
 </c:import>
