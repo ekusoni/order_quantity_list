@@ -31,7 +31,10 @@ import lombok.Setter;
             query=JpaConst.Q_MEN_COUNT_DEF),
     @NamedQuery(
             name=JpaConst.Q_MEN_GET_BY_MAXID,
-            query=JpaConst.Q_MEN_GET_BY_MAXID_DEF)
+            query=JpaConst.Q_MEN_GET_BY_MAXID_DEF),
+    @NamedQuery(
+            name=JpaConst.Q_MEN_COUNT_RESISTERED_BY_TOPDISPLAY,
+            query=JpaConst.Q_MEN_COUNT_RESISTERED_BY_TOPDISPLAY_DEF),
 
 })
 
@@ -61,6 +64,12 @@ public class Menu {
      */
     @Column(name=JpaConst.MENU_COL_END_DATE,nullable=false)
     private LocalDate endDate;
+
+    /**
+     * トップ画面表示
+     */
+    @Column(name=JpaConst.MEN_COL_DISPLAY,nullable=false)
+    private String topDisplay;
 
 
 
