@@ -20,7 +20,8 @@ public class MenuConverter {
         return new Menu(
                 mv.getId(),
                 mv.getStartDate(),
-                mv.getEndDate());
+                mv.getEndDate(),
+                mv.getTopDisplay());
     }
 
     /**
@@ -37,7 +38,8 @@ public class MenuConverter {
         return new MenuView(
                 m.getId(),
                 m.getStartDate(),
-                m.getEndDate());
+                m.getEndDate(),
+                m.getTopDisplay());
     }
 
     /**
@@ -65,6 +67,7 @@ public class MenuConverter {
         m.setId(mv.getId());
         m.setStartDate(mv.getStartDate());
         m.setEndDate(mv.getEndDate());
+        m.setTopDisplay(mv.getTopDisplay());
     }
 
 }
