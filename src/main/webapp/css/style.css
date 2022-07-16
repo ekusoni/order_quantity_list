@@ -215,11 +215,84 @@ table#material_list_search .cooking_action{
     width: 50%;
 }
 
+.cooking_material_input{
+    width: 600px;
+    display: inline-block;
+}
+
 .material_show{
     display: inline-block;
+    padding: 10px 2%
+}
+
+input.material_input{
+    width: 40px;
+}
+
+table#menu_list th{
+    font-weight: bold;
+    padding: 10px 2%
+}
+
+table#menu_list .menu_startDate{
+    width: 20%;
+}
+
+table#menu_list .menu_endDate{
+    width: 20%;
+}
+
+table#cooking_list .menu_cooking{
+    width: 20%;
+}
+
+table#cooking_list .menu_topPage{
+    width: 10%;
+}
+
+table#cooking_list .menu_action{
+    width: 10%;
 }
 
 h3{
     font-size: larger;
 }
 
+hr{
+    height: 0;
+    margin-top: 50px;
+    margin-bottom: 50px;
+    padding: 0;
+    border: 0;
+    border-top: 1px solid #000000;
+}
+
+.top_menus h2{
+    font-weight: 600;
+    font-size: 40px;
+    margin-bottom: 15px;
+}
+.top_menus h3{
+    font-size: 33px;
+}
+
+.top_menu_date{
+    font-size: 20px;
+}
+
+.top_menu{
+    display: flex;
+}
+
+.top_menu_morning{
+    font-size: 20px;
+}
+
+.top_menu_noon{
+    padding-left: 20%;
+    font-size: 20px;
+}
+.top_menu_evening{
+    padding-left: 20%;
+    font-size: 20px;
+}
