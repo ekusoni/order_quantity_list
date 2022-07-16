@@ -30,15 +30,16 @@
 
 
 
-        <div class="cooking_material">
+        <div class="cooking_material_input">
         <c:forEach var="material" items="${materials}">
             <c:if test="${cooking.id==material.cooking.id}">
             <span class="material_show">
                 <label for="${AttributeConst.MAT_AMOUNT.getValue()}"><c:out value="${material.materialMaster.name}">の量</c:out></label>
-                <input type="text" name="${AttributeConst.MAT_AMOUNT.getValue()}" value="${material.amount}" />
-                <c:out value="${material.materialMaster.unit }"></c:out>&nbsp;&nbsp;&nbsp;
-            </span>
-            <span class="material_destroy"><button type="submit" formaction="?action=${actCoo}&command=${commDes}&id=${material.id}">削除</button></span>
+                <input class="material_input" type="text" name="${AttributeConst.MAT_AMOUNT.getValue()}" value="${material.amount}" />
+                <c:out value="${material.materialMaster.unit }"></c:out>
+                <button class="material_input" type="submit" formaction="?action=${actCoo}&command=${commDes}&id=${material.id}">削除</button>
+            </span>&nbsp;&nbsp;
+
             </c:if>
         </c:forEach>
         </div>
