@@ -27,6 +27,17 @@ public class MenuService extends ServiceBase {
     }
 
     /**
+     * 全てのメニューデータを取得し、MenuViewのリストで返却する
+     * return 表示するデータのリスト
+     */
+    public List<MenuView> getPage(){
+        List<Menu> menus=em.createNamedQuery(JpaConst.Q_MEN_GET_ALL,Menu.class)
+                .getResultList();
+
+        return MenuConverter.toViewList(menus);
+    }
+
+    /**
      * メニューテーブルのデータの件数を取得し、返却する
      * @return メニューテーブルのデータの件数
      */
@@ -55,6 +66,15 @@ public class MenuService extends ServiceBase {
                 .getSingleResult();
 
         return MenuConverter.toView(m);
+    }
+
+    public long countByTopDisplay(String topDisplay) {
+
+        long topDisplay_count=(long) em.createNamedQuery(JpaConst.Q_MEN_COUNT_RESISTERED_BY_TOPDISPLAY,Long.class)
+                .setParameter(JpaConst.JPQL_PARM_DISPLAY,topDisplay)
+                .getSingleResult();
+
+        return topDisplay_count;
     }
 
 
