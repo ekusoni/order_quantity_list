@@ -20,6 +20,10 @@ import services.CookingService;
 import services.CookingSlaveService;
 import services.MenuService;
 
+/**
+ * メニューに関わる処理を行うActionクラス
+ *
+ */
 public class MenuAction extends ActionBase {
 
     private MenuService serviceMen;
@@ -60,11 +64,13 @@ public class MenuAction extends ActionBase {
         long menuCount = serviceMen.countAll();
 
         List<CookingSlaveView> cookingSlaves = serviceCos.getPage();
+        List<CookingView> cookings = serviceCoo.getSelectList();
 
         putRequestScope(AttributeConst.MENUS, menus);
         putRequestScope(AttributeConst.MEN_COUNT, menuCount);
         putRequestScope(AttributeConst.COOKINGSLS, cookingSlaves);
         putRequestScope(AttributeConst.MAX_ROW, JpaConst.ROW_PER_PAGE);
+        putRequestScope(AttributeConst.COOKINGS, cookings);
 
         //セッションにフラッシュメッセージが設定されている場合はリクエストスコープに移し替え、セッションから削除する
         String flush = getSessionScope(AttributeConst.FLUSH);
@@ -98,7 +104,7 @@ public class MenuAction extends ActionBase {
      */
     public void next() throws ServletException, IOException {
 
-        if (checkToken()) {
+        if (checkAuthor()) {
             List<String> errors = new ArrayList<String>();
             MenuView mv = new MenuView();
             List<CookingView> cookings = serviceCoo.getSelectList();//料理の選択リスト
@@ -116,7 +122,7 @@ public class MenuAction extends ActionBase {
 
             }
 
-          //終了日の入力値があるかをチェックし、入力値がなければエラーメッセージを返却
+            //終了日の入力値があるかをチェックし、入力値がなければエラーメッセージを返却
             if (getRequestParam(AttributeConst.MENU_DATE_END) == null
                     || getRequestParam(AttributeConst.MENU_DATE_END).equals("")) {
                 errors.add(MessageConst.E_MENU_NOEND.getMessage());
@@ -126,6 +132,7 @@ public class MenuAction extends ActionBase {
                 mv.setEndDate(end);
             }
             mv.setId(null);
+            mv.setTopDisplay("no");
 
             if (mv.getStartDate() != null && mv.getEndDate() != null) {
                 errors = MenuValidator.validate(mv);
@@ -176,14 +183,13 @@ public class MenuAction extends ActionBase {
 
     }
 
-
     /**
      * 新規登録を行う
      * @throws ServletException
      * @throws IOException
      */
     public void create() throws ServletException, IOException {
-        if (checkToken()) {
+        if (checkToken() && checkAuthor()) {
 
             String[] amount = getRequestParamValues(AttributeConst.COOKINGSL_AMOUNT);//複数の量のデータを取得する
             String[] morningCookingId = getRequestParamValues(AttributeConst.COS_COL_MORNING_COOKING_ID);//朝の料理のidを複数取得する
@@ -215,7 +221,6 @@ public class MenuAction extends ActionBase {
             } else {
                 eveningLength = eveningCookingId.length;
             }
-
 
             for (int i = 0; i < amount.length; i++) {
                 if (i < morningLength) {
@@ -250,7 +255,6 @@ public class MenuAction extends ActionBase {
                     break;
                 }
             }
-
 
             if (error != null) {
                 List<CookingView> cookings = serviceCoo.getSelectList();
@@ -315,27 +319,31 @@ public class MenuAction extends ActionBase {
      * @throws IOException
      */
     public void edit() throws ServletException, IOException {
-        //idを条件にメニューデータを取得する
-        MenuView mv = serviceMen.findOne(toNumber(getRequestParam(AttributeConst.MEN_ID)));
-        List<CookingSlaveView> cookingSlaves = serviceCos.getMenus(toNumber(getRequestParam(AttributeConst.MEN_ID)));//メニューidを条件に料理(量)データを取得する
-        List<CookingView> cookings = serviceCoo.getSelectList();//料理データを全て取得する
 
-        if (mv == null) {
-            forward(ForwardConst.FW_ERR_UNKNOWN);
-            return;
-        } else {
+        if (checkAuthor()) {
 
-            putRequestScope(AttributeConst.TOKEN, getTokenId());//CSRF対策用トークン
-            putRequestScope(AttributeConst.COOKINGSLS, cookingSlaves);
-            putRequestScope(AttributeConst.COOKINGS, cookings);
-            putRequestScope(AttributeConst.MENU, mv);
+            //idを条件にメニューデータを取得する
+            MenuView mv = serviceMen.findOne(toNumber(getRequestParam(AttributeConst.MEN_ID)));
+            List<CookingSlaveView> cookingSlaves = serviceCos
+                    .getMenus(toNumber(getRequestParam(AttributeConst.MEN_ID)));//メニューidを条件に料理(量)データを取得する
+            List<CookingView> cookings = serviceCoo.getSelectList();//料理データを全て取得する
 
-            //編集画面を表示する
-            forward(ForwardConst.FW_MEN_EDIT);
+            if (mv == null) {
+                forward(ForwardConst.FW_ERR_UNKNOWN);
+                return;
+            } else {
+
+                putRequestScope(AttributeConst.TOKEN, getTokenId());//CSRF対策用トークン
+                putRequestScope(AttributeConst.COOKINGSLS, cookingSlaves);
+                putRequestScope(AttributeConst.COOKINGS, cookings);
+                putRequestScope(AttributeConst.MENU, mv);
+
+                //編集画面を表示する
+                forward(ForwardConst.FW_MEN_EDIT);
+            }
+
         }
-
     }
-
 
     /**
      * 更新を行う
@@ -345,7 +353,7 @@ public class MenuAction extends ActionBase {
     public void update() throws ServletException, IOException {
 
         //CSRF対策用tokenのチェック
-        if (checkToken()) {
+        if (checkToken() && checkAuthor()) {
 
             //idを条件に料理(量)データリストを取得する
             MenuView mv = serviceMen.findOne(toNumber(getRequestParam(AttributeConst.MEN_ID)));
@@ -359,7 +367,7 @@ public class MenuAction extends ActionBase {
             String[] amount = getRequestParamValues(AttributeConst.COOKINGSL_AMOUNT);
             String error = null;
 
-          //料理(量)データを格納するため配列の長さを取得している
+            //料理(量)データを格納するため配列の長さを取得している
             int morningLength;
             int noonLength;
             int eveningLength;
@@ -447,7 +455,6 @@ public class MenuAction extends ActionBase {
         }
     }
 
-
     /**
      * 追加画面を表示する
      * @throws ServletException
@@ -455,36 +462,39 @@ public class MenuAction extends ActionBase {
      */
     public void addition() throws ServletException, IOException {
 
-        //セッションにlist型の料理データが格納されている場合は消去する
-        if(getSessionScope(AttributeConst.COS_TENTATIVE) !=null) {
-            removeSessionScope(AttributeConst.COS_TENTATIVE);
-        }
+        if (checkAuthor()) {
 
-        //idを条件にメニューデータを取得する
-        MenuView mv = serviceMen.findOne(toNumber(getRequestParam(AttributeConst.MEN_ID)));
+            //セッションにlist型の料理データが格納されている場合は消去する
+            if (getSessionScope(AttributeConst.COS_TENTATIVE) != null) {
+                removeSessionScope(AttributeConst.COS_TENTATIVE);
+            }
 
-        //メニューidを条件に複数の料理(量)データを取得する
-        List<CookingSlaveView> cookingSlaves = serviceCos.getMenus(toNumber(getRequestParam(AttributeConst.MEN_ID)));
+            //idを条件にメニューデータを取得する
+            MenuView mv = serviceMen.findOne(toNumber(getRequestParam(AttributeConst.MEN_ID)));
 
-        //料理データを全て取得する
-        List<CookingView> cookings = serviceCoo.getSelectList();
+            //メニューidを条件に複数の料理(量)データを取得する
+            List<CookingSlaveView> cookingSlaves = serviceCos
+                    .getMenus(toNumber(getRequestParam(AttributeConst.MEN_ID)));
 
-        if (mv == null) {
-            //該当のメニューデータが存在しない場合はエラー画面を表示
-            forward(ForwardConst.FW_ERR_UNKNOWN);
+            //料理データを全て取得する
+            List<CookingView> cookings = serviceCoo.getSelectList();
 
-        } else {
-            putRequestScope(AttributeConst.TOKEN, getTokenId());
-            putRequestScope(AttributeConst.MENU, mv);
-            putRequestScope(AttributeConst.COOKINGSLS, cookingSlaves);
-            putRequestScope(AttributeConst.COOKINGS, cookings);
+            if (mv == null) {
+                //該当のメニューデータが存在しない場合はエラー画面を表示
+                forward(ForwardConst.FW_ERR_UNKNOWN);
 
-            //追加画面を表示
-            forward(ForwardConst.FW_MEN_ADD);
+            } else {
+                putRequestScope(AttributeConst.TOKEN, getTokenId());
+                putRequestScope(AttributeConst.MENU, mv);
+                putRequestScope(AttributeConst.COOKINGSLS, cookingSlaves);
+                putRequestScope(AttributeConst.COOKINGS, cookings);
+
+                //追加画面を表示
+                forward(ForwardConst.FW_MEN_ADD);
+            }
         }
 
     }
-
 
     /**
      * 追加画面と入力情報の表示を繰り返す
@@ -492,12 +502,13 @@ public class MenuAction extends ActionBase {
      * @throws IOException
      */
     public void increase() throws ServletException, IOException {
-        if (checkToken()) {
+        if (checkToken() && checkAuthor()) {
 
-            List<CookingView> cookings =serviceCoo.getSelectList();
-            List<CookingSlaveView> cookingSlaves=serviceCos.getMenus(toNumber(getRequestParam(AttributeConst.MEN_ID)));
-            MenuView mv =serviceMen.findOne(toNumber(getRequestParam(AttributeConst.MEN_ID)));
-            CookingView cv =new CookingView();
+            List<CookingView> cookings = serviceCoo.getSelectList();
+            List<CookingSlaveView> cookingSlaves = serviceCos
+                    .getMenus(toNumber(getRequestParam(AttributeConst.MEN_ID)));
+            MenuView mv = serviceMen.findOne(toNumber(getRequestParam(AttributeConst.MEN_ID)));
+            CookingView cv = new CookingView();
             if (getRequestParam(AttributeConst.COS_COL_COOKING_ID) != null) {
 
                 //料理の選択があった場合
@@ -510,102 +521,138 @@ public class MenuAction extends ActionBase {
                         getRequestParam(AttributeConst.COOKINGSL_TIMEZONE));
 
                 //個数の判定を行う
-                String error=CookingSlaveValidator.validate(csv);
+                String error = CookingSlaveValidator.validate(csv);
 
-
-                if(error != null) {
+                if (error != null) {
                     csv.setAmount(0);
 
-                    putRequestScope(AttributeConst.TOKEN,getTokenId());
-                    putRequestScope(AttributeConst.ERR,error);
-                    putRequestScope(AttributeConst.COOKINGSL,csv);
-                    putRequestScope(AttributeConst.MENU,mv);
-                    putRequestScope(AttributeConst.COOKINGS,cookings);
+                    putRequestScope(AttributeConst.TOKEN, getTokenId());
+                    putRequestScope(AttributeConst.ERR, error);
+                    putRequestScope(AttributeConst.COOKINGSL, csv);
+                    putRequestScope(AttributeConst.MENU, mv);
+                    putRequestScope(AttributeConst.COOKINGS, cookings);
 
-
-                //配列に料理(量)の内容を格納して、セッションに保存する
-                }else if(getSessionScope(AttributeConst.COS_TENTATIVE) == null){
-                    CookingSlaveView[] csvArray =new CookingSlaveView[1];
-                    csvArray[0]= csv;
-                    putSessionScope(AttributeConst.COS_TENTATIVE,csvArray);
-                    putRequestScope(AttributeConst.COS_TENTATIVE_LENGTH,csvArray.length);
-                    System.out.println("csvArrayT"+csvArray[0].getAmount());
-                }else {
-                    CookingSlaveView[] csvArray =getSessionScope(AttributeConst.COS_TENTATIVE);
-                    CookingSlaveView[] csvArrayT =new CookingSlaveView[csvArray.length+1];
+                    //配列に料理(量)の内容を格納して、セッションに保存する
+                } else if (getSessionScope(AttributeConst.COS_TENTATIVE) == null) {
+                    CookingSlaveView[] csvArray = new CookingSlaveView[1];
+                    csvArray[0] = csv;
+                    putSessionScope(AttributeConst.COS_TENTATIVE, csvArray);
+                    putRequestScope(AttributeConst.COS_TENTATIVE_LENGTH, csvArray.length);
+                    System.out.println("csvArrayT" + csvArray[0].getAmount());
+                } else {
+                    CookingSlaveView[] csvArray = getSessionScope(AttributeConst.COS_TENTATIVE);
+                    CookingSlaveView[] csvArrayT = new CookingSlaveView[csvArray.length + 1];
                     System.arraycopy(csvArray, 0, csvArrayT, 0, csvArray.length);
                     csvArrayT[csvArray.length] = csv;
                     putSessionScope(AttributeConst.COS_TENTATIVE, csvArrayT);
-                    putRequestScope(AttributeConst.COS_TENTATIVE_LENGTH,csvArrayT.length);
-
+                    putRequestScope(AttributeConst.COS_TENTATIVE_LENGTH, csvArrayT.length);
 
                 }
 
-
-            }else {
-                putRequestScope(AttributeConst.COOKINGS,cookings);
-                putRequestScope(AttributeConst.COOKINGSL,new CookingSlaveView());//空の料理(量)インスタンス
+            } else {
+                putRequestScope(AttributeConst.COOKINGS, cookings);
+                putRequestScope(AttributeConst.COOKINGSL, new CookingSlaveView());//空の料理(量)インスタンス
 
             }
 
+            putRequestScope(AttributeConst.TOKEN, getTokenId());//CSRF対策用トークン
+            putRequestScope(AttributeConst.MENU, mv);//取得したメニューデータ
+            putRequestScope(AttributeConst.COOKINGSLS, cookingSlaves);//取得した料理(量)データ
 
-
-            putRequestScope(AttributeConst.TOKEN,getTokenId());//CSRF対策用トークン
-            putRequestScope(AttributeConst.MENU,mv);//取得したメニューデータ
-            putRequestScope(AttributeConst.COOKINGSLS,cookingSlaves);//取得した料理(量)データ
-
-          //次の画面を表示
+            //次の画面を表示
             forward(ForwardConst.FW_MEN_ADD);
-
-
-
-
 
         }
 
     }
-
 
     /**
      * 料理の追加を行う
      * @throws ServletException
      * @throws IOException
      */
-    public void gain() throws ServletException,IOException{
+    public void gain() throws ServletException, IOException {
 
-        //セッションに格納されている料理(量)のデータ取得する
-        CookingSlaveView[] csvArrayT = getSessionScope(AttributeConst.COS_TENTATIVE);
+        if (checkAuthor()) {
 
-        for(int i =0; i< csvArrayT.length; i++) {
-            serviceCos.create(csvArrayT[i]);//料理(量)情報登録
+            //セッションに格納されている料理(量)のデータ取得する
+            CookingSlaveView[] csvArrayT = getSessionScope(AttributeConst.COS_TENTATIVE);
+
+            for (int i = 0; i < csvArrayT.length; i++) {
+                serviceCos.create(csvArrayT[i]);//料理(量)情報登録
+            }
+
+            removeSessionScope(AttributeConst.COS_TENTATIVE);
+
+            //セッションに登録完了のフラッシュメッセージを設定
+            putSessionScope(AttributeConst.FLUSH, MessageConst.I_UPDATED.getMessage());
+            //一覧画面にリダイレクト
+            redirect(ForwardConst.ACT_MENU, ForwardConst.CMD_INDEX);
         }
-
-
-        removeSessionScope(AttributeConst.COS_TENTATIVE);
-
-        //セッションに登録完了のフラッシュメッセージを設定
-        putSessionScope(AttributeConst.FLUSH,MessageConst.I_UPDATED.getMessage());
-        //一覧画面にリダイレクト
-        redirect(ForwardConst.ACT_MENU,ForwardConst.CMD_INDEX);
     }
-
 
     /**
      * メニューから料理を削除する
      * @throws ServletException
      * @throws IOException
      */
-    public void destroy() throws ServletException,IOException{
+    public void destroy() throws ServletException, IOException {
 
-        CookingSlaveView csv=serviceCos.findOne(toNumber(getRequestParam(AttributeConst.COS_ID)));
+        if (checkAuthor()) {
 
-        //料理(量)情報削除
-        serviceCos.destroy(csv);
+            CookingSlaveView csv = serviceCos.findOne(toNumber(getRequestParam(AttributeConst.COS_ID)));
 
-        //セッションに削除完了のフラッシュメッセージを設定
-        putSessionScope(AttributeConst.FLUSH,MessageConst.I_DELETED.getMessage());
-        //一覧画面にリダイレクト
-        redirect(ForwardConst.ACT_MENU,ForwardConst.CMD_INDEX);
+            //料理(量)情報削除
+            serviceCos.destroy(csv);
+
+            //セッションに削除完了のフラッシュメッセージを設定
+            putSessionScope(AttributeConst.FLUSH, MessageConst.I_DELETED.getMessage());
+            //一覧画面にリダイレクト
+            redirect(ForwardConst.ACT_MENU, ForwardConst.CMD_INDEX);
+
+        }
+    }
+
+    public void top() throws ServletException, IOException {
+
+        if (checkAuthor()) {
+
+            MenuView mv = serviceMen.findOne(toNumber(getRequestParam(AttributeConst.MEN_ID)));
+
+            if (mv == null) {
+                //該当のメニューデータが存在しない場合はエラー画面を表示
+                forward(ForwardConst.FW_ERR_UNKNOWN);
+            } else {
+                List<MenuView> menus = serviceMen.getPage();
+                long one = serviceMen.countByTopDisplay("one");
+                long two = serviceMen.countByTopDisplay("two");
+
+                if (one == 0 && two == 0) {
+                    mv.setTopDisplay("one");
+                } else if (two == 0) {
+                    mv.setTopDisplay("two");
+                } else {
+                    for (MenuView menu : menus) {
+                        if (menu.getTopDisplay().equals("two")) {
+                            menu.setTopDisplay("one");
+                            serviceMen.update(menu);
+                        } else if (menu.getTopDisplay().equals("one")) {
+                            menu.setTopDisplay("no");
+                            serviceMen.update(menu);
+                        }
+                    }
+                    mv.setTopDisplay("two");
+
+                }
+
+                serviceMen.update(mv);
+
+                //一覧画面にリダイレクト
+                redirect(ForwardConst.ACT_MENU, ForwardConst.CMD_INDEX);
+
+            }
+
+        }
 
     }
 
