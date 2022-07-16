@@ -37,6 +37,8 @@ public class CookingSlaveService extends ServiceBase{
         return CookingSlaveConverter.toViewList(cookingSlaves);
     }
 
+
+
     /**
      * idを条件に取得したデータをCookingSlaveViewのインスタンスで返却する
      * @param id
