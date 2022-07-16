@@ -12,6 +12,14 @@ import services.MaterialMasterService;
  */
 public class MaterialMasterValidator {
 
+    /**
+     * 材料インスタンスの各項目についてバリデーションを行う
+     * @param service 呼び出し元serviceクラスのインスタンス
+     * @param mmv MaterialViewのインスタンス
+     * @param nameDuplicateCheckFlag 材料名の重複チェックを実施するかどうか(実施する:true 実施しない:false)
+     * @return エラーのリスト
+     */
+
     public static List<String> validate(MaterialMasterService service, MaterialMasterView mmv,
             Boolean nameDuplicateCheckFlag) {
         List<String> errors = new ArrayList<String>();
