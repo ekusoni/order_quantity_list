@@ -25,7 +25,7 @@
 
 
         <input type="hidden" name="${AttributeConst.COO_ID.getValue()}" value="${cooking.id}" />
-        <input type="hidden" name="${AttributeConst.TOKEN.getValue()}" value="${_token }" />
+        <input type="hidden" name="${AttributeConst.TOKEN.getValue()}" value="${_token}" />
         <button type="submit">次の画面へ</button>
     </form>
 
