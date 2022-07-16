@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page import="constants.ForwardConst" %>
+<%@ page import="constants.AttributeConst" %>
 
 <c:set var="actCoo" value="${ForwardConst.ACT_COO.getValue()}" />
 <c:set var="commIdx" value="${ForwardConst.CMD_INDEX.getValue()}" />
@@ -16,7 +17,7 @@
     <c:out value="${cooking.name}"></c:out><br /><br />
 
     <h3>材料</h3>
-    <div class="cooking_material">
+    <div class="cooking_material_input">
     <c:forEach var="material" items="${materials}">
         <c:if test="${cooking.id==material.cooking.id}">
         <span class="material_show">
@@ -28,20 +29,17 @@
     </c:forEach>
     </div>
 
-
-    <p>
-        <a href="<c:url value='?action=${actCoo}&command=${commEdt}&id=${cooking.id}' />">この料理を編集する</a>
-    </p>
-    <p>
-        <a href="<c:url value='?action=${actCoo}&command=${commAdd}&id=${cooking.id}' />">材料を追加する</a>
-    </p>
+    <c:if test="${sessionScope.login_user.authorFlag==AttributeConst.ROLE_AUTHOR.getIntegerValue()}">
+        <p>
+            <a href="<c:url value='?action=${actCoo}&command=${commEdt}&id=${cooking.id}' />">この料理を編集する</a>
+        </p>
+        <p>
+            <a href="<c:url value='?action=${actCoo}&command=${commAdd}&id=${cooking.id}' />">材料を追加する</a>
+        </p>
+    </c:if>
     <p>
         <a href="<c:url value='?action=${actCoo}&command=${commIdx}' />">一覧に戻る</a>
     </p>
-
-
-
-
 
 
 

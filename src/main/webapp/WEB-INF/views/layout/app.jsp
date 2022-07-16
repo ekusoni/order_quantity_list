@@ -30,10 +30,11 @@
                 <c:if test="${sessionScope.login_user !=null}">
                     <c:if test="${sessionScope.login_user.authorFlag==AttributeConst.ROLE_AUTHOR.getIntegerValue()}">
                         <a href="<c:url value='?action=${actUse}&command=${commIdx}' />">利用者一覧</a>
+
+                    </c:if>
                         <a href="<c:url value='?action=${actMatM}&command=${commIdx}' />">材料</a>
                         <a href="<c:url value='?action=${actCoo}&command=${commIdx}' />">料理</a>
                         <a href="<c:url value='?action=${actMen}&command=${commIdx}' />">メニュー</a>
-                    </c:if>
                 </c:if>
             </div>
             <c:if test="${sessionScope.login_user != null}">

@@ -17,9 +17,11 @@
     <h3>材料の単位</h3>
     <c:out value="${materialMaster.unit}" /><br /><br />
 
-    <p>
-        <a href="<c:url value='?action=${actMatM}&command=${commEdt}&id=${materialMaster.id}' />">この材料を編集する</a>
-    </p>
+    <c:if test="${sessionScope.login_user.authorFlag==AttributeConst.ROLE_AUTHOR.getIntegerValue()}">
+        <p>
+            <a href="<c:url value='?action=${actMatM}&command=${commEdt}&id=${materialMaster.id}' />">この材料を編集する</a>
+        </p>
+    </c:if>
     <p>
         <a href="<c:url value='?action=${actMatM}&command=${commIdx}' />">一覧に戻る</a>
     </p>

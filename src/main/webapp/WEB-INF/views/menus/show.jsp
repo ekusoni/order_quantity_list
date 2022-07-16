@@ -22,6 +22,8 @@
     <fmt:formatDate value='${startDay}' pattern='yyyy年MM月dd日' />～<fmt:formatDate value='${endDay}' pattern='yyyy年MM月dd日' />
 
 
+    <div id="menu_show">
+    <div class="menu_morning">
     <h3>朝</h3>
     <c:forEach var="cookingSlave" items="${cookingSlaves}">
         <c:if test="${menu.id==cookingSlave.menu.id && cookingSlave.timeZone=='morning'}">
@@ -29,6 +31,9 @@
             <c:out value="${cookingSlave.amount }" />個
         </c:if>
     </c:forEach>
+    </div>
+
+    <div class="menu_noon">
     <h3>昼</h3>
     <c:forEach var="cookingSlave" items="${cookingSlaves}">
         <c:if test="${menu.id==cookingSlave.menu.id && cookingSlave.timeZone=='noon'}">
@@ -36,6 +41,9 @@
             <c:out value="${cookingSlave.amount }" />個
         </c:if>
     </c:forEach>
+    </div>
+
+    <div class="menu_evening">
     <h3>夕</h3>
         <c:forEach var="cookingSlave" items="${cookingSlaves}">
         <c:if test="${menu.id==cookingSlave.menu.id && cookingSlave.timeZone=='evening'}">
@@ -43,6 +51,8 @@
             <c:out value="${cookingSlave.amount }" />個
         </c:if>
     </c:forEach>
+    </div>
+    </div>
 
     <c:if test="${menu.topDisplay=='no'}">
         <form method="POST" action="<c:url value='?action=${actMen}&command=${commTop}' />">
@@ -51,10 +61,18 @@
         </form>
     </c:if>
 
+    <c:if test="${sessionScope.login_user.authorFlag==AttributeConst.ROLE_AUTHOR.getIntegerValue()}">
+        <p>
+            <a href="<c:url value='?action=${actMen}&command=${commEdt}&id=${menu.id}' />">このメニューを編集する</a>
+        </p>
+        <p>
+            <a href="<c:url value='?action=${actMen}&command=${commAdd}&id=${menu.id}' />">料理を追加する</a>
+        </p>
+    </c:if>
+
     <p>
-        <a href="<c:url value='?action=${actMen}&command=${commEdt}&id=${menu.id}' />">このメニューを編集する</a>
+        <a href="<c:url value='?action=${actMen}&command=${commIdx}' />">一覧に戻る</a>
     </p>
-    <p>
-        <a href="<c:url value='?action=${actMen}&command=${commAdd}&id=${menu.id}' />">料理を追加する</a>
+
     </c:param>
 </c:import>

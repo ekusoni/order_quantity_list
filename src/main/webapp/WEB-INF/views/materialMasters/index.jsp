@@ -75,6 +75,8 @@
                </c:choose>
            </c:forEach>
         </div>
-        <p><a href="<c:url value='?action=${actMatM}&command=${commNew}' />">材料の新規登録</a></p>
+        <c:if test="${sessionScope.login_user.authorFlag==AttributeConst.ROLE_AUTHOR.getIntegerValue()}">
+            <p><a href="<c:url value='?action=${actMatM}&command=${commNew}' />">材料の新規登録</a></p>
+        </c:if>
     </c:param>
 </c:import>
