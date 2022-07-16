@@ -32,4 +32,9 @@ public class MenuView {
      */
     private LocalDate endDate;
 
+    /**
+     * メニューのトップ画面選定
+     */
+    private String topDisplay;
+
 }
