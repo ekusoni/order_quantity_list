@@ -18,15 +18,15 @@
 
     <h3>材料</h3>
     <div class="cooking_material_input">
-    <c:forEach var="material" items="${materials}">
-        <c:if test="${cooking.id==material.cooking.id}">
-        <span class="material_show">
-            <c:out value="${material.materialMaster.name}"></c:out>
-            :<c:out value="${material.amount}"></c:out>
-            <c:out value="${material.materialMaster.unit}"></c:out>&nbsp;&nbsp;
-        </span>
-        </c:if>
-    </c:forEach>
+        <c:forEach var="material" items="${materials}">
+            <c:if test="${cooking.id==material.cooking.id}">
+                <span class="material_show">
+                    <c:out value="${material.materialMaster.name}"></c:out>
+                    :<c:out value="${material.amount}"></c:out>
+                    <c:out value="${material.materialMaster.unit}"></c:out>&nbsp;&nbsp;
+                </span>
+            </c:if>
+        </c:forEach>
     </div>
 
     <c:if test="${sessionScope.login_user.authorFlag==AttributeConst.ROLE_AUTHOR.getIntegerValue()}">

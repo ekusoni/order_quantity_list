@@ -15,7 +15,7 @@
 
 
 <label for="${AttributeConst.MATM_UNIT.getValue()}">単位</label><br />
-<input type="text" name="${AttributeConst.MATM_UNIT.getValue()}" value="${materialMaster.unit}" />
+<input class="material_input" type="text" name="${AttributeConst.MATM_UNIT.getValue()}" value="${materialMaster.unit}" />
 <br /><br />
 
 

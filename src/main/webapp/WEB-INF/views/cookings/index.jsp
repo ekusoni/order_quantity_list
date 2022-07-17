@@ -22,7 +22,7 @@
         <form method="POST" action="<c:url value='?action=${actCoo}&command=${commSea}' />">
             <input type="radio" name="${AttributeConst.COOKING.getValue()}" value="cookingName" required>料理名
             <input type="radio" name="${AttributeConst.COOKING.getValue()}" value="materialName">材料
-            <input type="text" name="${AttributeConst.COO_WORD.getValue()}" value="${cooking.name}" />
+            <input type="text" name="${AttributeConst.COO_WORD.getValue()}" />
         <button type="submit">検索</button><br /><br />
         </form>
 

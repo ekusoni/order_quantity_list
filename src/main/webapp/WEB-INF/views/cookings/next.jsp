@@ -45,22 +45,28 @@
 
 
                     <label for="${AttributeConst.MAT_AMOUNT.getValue()}">量</label><br />
-                    <input type="text" name="${AttributeConst.MAT_AMOUNT.getValue()}" />
+                    <input class="material_input" type="text" name="${AttributeConst.MAT_AMOUNT.getValue()}" />
                     <c:out value="${materialMaster.unit }" />
                     <button type="submit" formaction="?action=${actCoo}&command=${commNex}">次の画面</button>
                 </c:when>
 
                 <c:when test="${sessionScope.materialTentative !=null}">
-                    <c:forEach var="i" begin="0" end="${tentativeLength}" step="1" >
-                            <c:out value="${materialTentative[i]. materialMaster.name}"></c:out>
-                            <c:out value="${materialTentative[i].amount}"></c:out>
-                            <c:out value="${materialTentative[i].materialMaster.unit}"></c:out>&nbsp;
-                    </c:forEach>
+                    <div class="meterial_tentatives">
+                        <c:forEach var="i" begin="0" end="${tentativeLength}" step="1" >
+                            <span class="material_tentative">
+                                <c:out value="${materialTentative[i]. materialMaster.name}"></c:out>
+                                <c:out value="${materialTentative[i].amount}"></c:out>
+                                <c:out value="${materialTentative[i].materialMaster.unit}"></c:out>
+                            </span>&nbsp;
+                        </c:forEach>
+                    </div>
+
                     <button type="submit" formaction="?action=${actCoo}&command=${commNex}">次の材料</button>
                     <button type="submit" formaction="?action=${actCoo}&command=${commCrt}">料理と材料の確定</button>
-
                 </c:when>
             </c:choose>
+
+            <input type="hidden" name="${AttributeConst.TOKEN.getValue()}" value="${_token}" />
 
 
         </form>

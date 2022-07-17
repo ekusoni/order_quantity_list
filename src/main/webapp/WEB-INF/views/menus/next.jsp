@@ -19,47 +19,74 @@
                     <c:out value="${errors}" /><br />
                 </div>
             </c:if>
-
-            <h3>朝</h3>
+            <div class="menu_next">
+                <div class="menu_next_morning">
+                <h3>朝</h3>
                 <c:forEach var="i" begin="1" end="${morning_amount}">
-                    <label for="${AttributeConst.COS_COL_MORNING_COOKING_ID.getValue()}">料理名</label><br />
-                    <select name="${AttributeConst.COS_COL_MORNING_COOKING_ID.getValue()}">
-                        <c:forEach var="cooking" items="${cookings }">
-                            <option value="${cooking.id}"><c:out value="${cooking.name}"></c:out></option>
-                        </c:forEach>
-                    </select><br /><br />
-                    <label for="${AttributeConst.COOKINGSL_AMOUNT.getValue()}">個数</label><br />
-                    <input type="text" name="${AttributeConst.COOKINGSL_AMOUNT.getValue()}" value="${cookingSlave[i].amount}" /><br /><br />
-                </c:forEach><br /><br />
+                    <div class="menu_next_cooking">
+                        <div class="menu_next_cooking_name">
+                            <label for="${AttributeConst.COS_COL_MORNING_COOKING_ID.getValue()}">料理名</label><br />
+                            <select name="${AttributeConst.COS_COL_MORNING_COOKING_ID.getValue()}">
+                                <c:forEach var="cooking" items="${cookings }">
+                                    <option value="${cooking.id}"><c:out value="${cooking.name}"></c:out></option>
+                                </c:forEach>
+                            </select>&nbsp;<br />
+                        </div>
+                    <div class="menu_next_amount">
+                        <label for="${AttributeConst.COOKINGSL_AMOUNT.getValue()}">個数</label><br />
+                        <input class="cookingSlave_amount_input"type="text" name="${AttributeConst.COOKINGSL_AMOUNT.getValue()}" value="${cookingSlave[i].amount}" /><br /><br />
+                    </div>
+                  </div>
+                </c:forEach>
+                </div>
 
-            <h3>昼</h3>
+                <div class="menu_next_noon">
+                <h3>昼</h3>
                 <c:forEach var="i" begin="1" end="${noon_amount}">
-                    <label for="${AttributeConst.COS_COL_NOON_COOKING_ID.getValue()}">料理名</label><br />
-                    <select name="${AttributeConst.COS_COL_NOON_COOKING_ID.getValue()}">
-                        <c:forEach var="cooking" items="${cookings }">
-                            <option value="${cooking.id}"><c:out value="${cooking.name}"></c:out></option>
-                        </c:forEach>
-                    </select><br /><br />
-                    <label for="${AttributeConst.COOKINGSL_AMOUNT.getValue()}">個数</label><br />
-                    <input type="text" name="${AttributeConst.COOKINGSL_AMOUNT.getValue()}" value="${cookingSlave[i+morning_amount-1].amount}" /><br /><br />
-                </c:forEach><br /><br />
+                    <div class="menu_next_cooking">
+                        <div class="menu_next_cooking_name">
+                            <label for="${AttributeConst.COS_COL_NOON_COOKING_ID.getValue()}">料理名</label><br />
+                            <select name="${AttributeConst.COS_COL_NOON_COOKING_ID.getValue()}">
+                                <c:forEach var="cooking" items="${cookings }">
+                                    <option value="${cooking.id}"><c:out value="${cooking.name}"></c:out></option>
+                                </c:forEach>
+                            </select>&nbsp;<br />
+                        </div>
+                        <div class="menu_next_cooking_amount">
+                            <label for="${AttributeConst.COOKINGSL_AMOUNT.getValue()}">個数</label><br />
+                            <input class="cookingSlave_amount_input"type="text" name="${AttributeConst.COOKINGSL_AMOUNT.getValue()}" value="${cookingSlave[i+morning_amount-1].amount}" /><br /><br />
+                        </div>
+                    </div>
+                </c:forEach>
+                 </div>
 
-            <h3>夕</h3>
+                <div class="menu_next_evening">
+                <h3>夕</h3>
                 <c:forEach var="i" begin="1" end="${evening_amount}">
-                    <label for="${AttributeConst.COS_COL_EVENING_COOKING_ID.getValue()}">料理名</label><br />
-                    <select name="${AttributeConst.COS_COL_EVENING_COOKING_ID.getValue()}">
-                        <c:forEach var="cooking" items="${cookings }">
-                            <option value="${cooking.id}"><c:out value="${cooking.name}"></c:out></option>
-                        </c:forEach>
-                    </select><br /><br />
-                    <label for="${AttributeConst.COOKINGSL_AMOUNT.getValue()}">個数</label><br />
-                    <input type="text" name="${AttributeConst.COOKINGSL_AMOUNT.getValue()}" value="${cookingSlave[i+morning_amount+noon_amount-1].amount}" /><br /><br />
-                </c:forEach><br /><br />
+                    <div class="menu_next_cooking">
+                        <div class="menu_next_cooking_name">
+                            <label for="${AttributeConst.COS_COL_EVENING_COOKING_ID.getValue()}">料理名</label><br />
+                            <select name="${AttributeConst.COS_COL_EVENING_COOKING_ID.getValue()}">
+                                <c:forEach var="cooking" items="${cookings }">
+                                    <option value="${cooking.id}"><c:out value="${cooking.name}"></c:out></option>
+                                </c:forEach>
+                            </select>&nbsp;<br />
+                        </div>
+                        <div class="menu_next_cooking_amount">
+                            <label for="${AttributeConst.COOKINGSL_AMOUNT.getValue()}">個数</label><br />
+                            <input class="cookingSlave_amount_input"type="text" name="${AttributeConst.COOKINGSL_AMOUNT.getValue()}" value="${cookingSlave[i+morning_amount+noon_amount-1].amount}" /><br /><br />
+                        </div>
+                        </div>
+                </c:forEach>&nbsp;<br />
+                </div>
 
                 <input type="hidden" name="${AttributeConst.MEN_ID.getValue()}" value="${menu.id}" />
                 <input type="hidden" name="${AttributeConst.TOKEN.getValue()}" value="${_token}" />
 
-                <button type="submit">登録</button>
+
+             </div>
+
+             <button type="submit">登録</button>
         </form>
 
         <p><a href="<c:url value='?action=${actMen}&command=${commIdx}' />">一覧に戻る</a></p>

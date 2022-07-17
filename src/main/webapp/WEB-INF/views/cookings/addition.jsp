@@ -34,9 +34,9 @@
                     </c:forEach>
                 </select>
                 <button type="submit" formaction="?action=${actCoo}&command=${commInc}">次の画面</button><br /><br />
-                <div class="cooking_material">
 
                 <h3>登録済み材料</h3>
+                <div class="cooking_material_input">
                 <c:forEach var="material" items="${materials}">
                     <c:if test="${cooking.id==material.cooking.id}">
                         <span class="material_show">
@@ -59,31 +59,39 @@
                 <c:out value="${materialMaster.unit}" />
                 <button type="submit" formaction="?action=${actCoo}&command=${commInc}">次の画面</button><br /><br />
 
-                <div class="cooking_material">
+
                 <h3>登録済み材料</h3>
-                <c:forEach var="material" items="${materials}">
-                    <c:if test="${cooking.id==material.cooking.id}">
-                        <span class="material_show">
-                            <c:out value="${material.materialMaster.name}"/>
-                            ：<c:out value="${material.amount}"/>
-                            <c:out value="${material.materialMaster.unit}" />&nbsp;&nbsp;
-                        </span>
-                    </c:if>
-                </c:forEach>
+                <div class="cooking_material_input">
+                    <c:forEach var="material" items="${materials}">
+                        <c:if test="${cooking.id==material.cooking.id}">
+                            <span class="material_show">
+                                <c:out value="${material.materialMaster.name}"/>
+                                ：<c:out value="${material.amount}"/>
+                                <c:out value="${material.materialMaster.unit}" />&nbsp;&nbsp;
+                            </span>
+                        </c:if>
+                    </c:forEach>
                 </div>
             </c:when>
 
             <c:when test="${sessionScope.materialTentative != null}">
-                <c:forEach var="i" begin="0" end="${tentativeLength}" step="1">
-                    <c:out value="${materialTentative[i].materialMaster.name}" />
-                    <c:out value="${materialTentative[i].amount}" />
-                    <c:out value="${materialTentative[i].materialMaster.unit}" />
-                </c:forEach>
-            <button type="submit" formaction="?action=${actCoo}&command=${commInc}">次の材料</button>
-            <button type="submit" formaction="?action=${actCoo}&command=${commGain}">材料の確定</button>
+                <div class="material_tentatives">
+                    <c:forEach var="i" begin="0" end="${tentativeLength}" step="1">
+                        <span class="material_tentative">
+                            <c:out value="${materialTentative[i].materialMaster.name}" />
+                            <c:out value="${materialTentative[i].amount}"/>
+                            <c:out value="${materialTentative[i].materialMaster.unit}" />
+                        </span>&nbsp;&nbsp;
+                    </c:forEach>
+                </div>
+
+                <button type="submit" formaction="?action=${actCoo}&command=${commInc}">次の材料</button>
+                <button type="submit" formaction="?action=${actCoo}&command=${commGain}">材料の確定</button>
 
             </c:when>
         </c:choose>
+
+       <input type="hidden" name="${AttributeConst.TOKEN.getValue()}" value="${_token}" />
 
     </form>
 

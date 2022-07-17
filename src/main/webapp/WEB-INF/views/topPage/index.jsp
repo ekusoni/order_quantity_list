@@ -15,7 +15,7 @@
 
         <c:forEach var="menu" items="${menus}">
             <c:if test="${menu.topDisplay=='one'}">
-                <h3>メニュ</h3>
+                <h3>メニュー</h3>
 
                 <hr>
 
@@ -73,7 +73,7 @@
         <c:forEach var="menu" items="${menus}">
             <c:if test="${menu.topDisplay=='two'}">
 
-                <h3>メニュ</h3>
+                <h3>メニュー</h3>
             <hr>
 
                 <div class=top_menu_date>

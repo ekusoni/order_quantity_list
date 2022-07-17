@@ -19,36 +19,36 @@
     <h3>期間</h3>
     <fmt:parseDate value="${menu.startDate}" pattern='yyyy-MM-dd' var="startDay" type="date" />
     <fmt:parseDate value="${menu.endDate}" pattern='yyyy-MM-dd' var="endDay" type="date" />
-    <fmt:formatDate value='${startDay}' pattern='yyyy年MM月dd日' />～<fmt:formatDate value='${endDay}' pattern='yyyy年MM月dd日' />
+    <fmt:formatDate value='${startDay}' pattern='yyyy年MM月dd日' />～<fmt:formatDate value='${endDay}' pattern='yyyy年MM月dd日' /><br />
 
 
-    <div id="menu_show">
-    <div class="menu_morning">
+    <div class="menu_show">
+    <div class="cookingSlave_morning">
     <h3>朝</h3>
     <c:forEach var="cookingSlave" items="${cookingSlaves}">
         <c:if test="${menu.id==cookingSlave.menu.id && cookingSlave.timeZone=='morning'}">
             <c:out value="${cookingSlave.cooking.name}" />
-            <c:out value="${cookingSlave.amount }" />個
+            <c:out value="${cookingSlave.amount }" />個<br />
         </c:if>
     </c:forEach>
     </div>
 
-    <div class="menu_noon">
+    <div class="cookingSlave_noon">
     <h3>昼</h3>
     <c:forEach var="cookingSlave" items="${cookingSlaves}">
         <c:if test="${menu.id==cookingSlave.menu.id && cookingSlave.timeZone=='noon'}">
             <c:out value="${cookingSlave.cooking.name}" />
-            <c:out value="${cookingSlave.amount }" />個
+            <c:out value="${cookingSlave.amount }" />個<br />
         </c:if>
     </c:forEach>
     </div>
 
-    <div class="menu_evening">
+    <div class="cookingSlave_evening">
     <h3>夕</h3>
         <c:forEach var="cookingSlave" items="${cookingSlaves}">
         <c:if test="${menu.id==cookingSlave.menu.id && cookingSlave.timeZone=='evening'}">
             <c:out value="${cookingSlave.cooking.name}" />
-            <c:out value="${cookingSlave.amount }" />個
+            <c:out value="${cookingSlave.amount }" />個<br />
         </c:if>
     </c:forEach>
     </div>
