@@ -104,7 +104,7 @@ public class MenuAction extends ActionBase {
      */
     public void next() throws ServletException, IOException {
 
-        if (checkAuthor()) {
+        if (checkToken() && checkAuthor()) {
             List<String> errors = new ArrayList<String>();
             MenuView mv = new MenuView();
             List<CookingView> cookings = serviceCoo.getSelectList();//料理の選択リスト
@@ -613,6 +613,11 @@ public class MenuAction extends ActionBase {
         }
     }
 
+    /**
+     * メニューをトップ画面に登録
+     * @throws ServletException
+     * @throws IOException
+     */
     public void top() throws ServletException, IOException {
 
         if (checkAuthor()) {
@@ -647,6 +652,7 @@ public class MenuAction extends ActionBase {
 
                 serviceMen.update(mv);
 
+                putSessionScope(AttributeConst.FLUSH, MessageConst.I_REGISTERED.getMessage());
                 //一覧画面にリダイレクト
                 redirect(ForwardConst.ACT_MENU, ForwardConst.CMD_INDEX);
 

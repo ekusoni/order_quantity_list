@@ -136,7 +136,7 @@ public class CookingAction extends ActionBase {
      */
     public void next() throws ServletException, IOException {
 
-        if (checkAuthor()) {
+        if (checkToken() && checkAuthor()) {
 
             //料理名が入力されているかの判定
             if (getSessionScope(AttributeConst.DURING_REGISTRATION) == null) {
@@ -155,7 +155,7 @@ public class CookingAction extends ActionBase {
                     List<MaterialMasterView> materialMastersSelect = serviceMas.getSelectList();
 
                     putRequestScope(AttributeConst.MATERIALMSS, materialMastersSelect);
-
+                    putRequestScope(AttributeConst.TOKEN, getTokenId());
                     putSessionScope(AttributeConst.DURING_REGISTRATION, cv);
                     //次の画面を表示
                     forward(ForwardConst.FW_COO_NEXT);
@@ -169,6 +169,7 @@ public class CookingAction extends ActionBase {
                         .findOne(toNumber(getRequestParam(AttributeConst.MAT_COL_MATERIALMASTER_ID)));
 
                 putSessionScope(AttributeConst.MATERIALM, mmv);//取得した材料名、材料の単位materialMasterViewを格納
+                putRequestScope(AttributeConst.TOKEN, getTokenId());
 
                 //次の画面を表示
                 forward(ForwardConst.FW_COO_NEXT);
@@ -187,6 +188,7 @@ public class CookingAction extends ActionBase {
 
                 if (error != "") {
                     putRequestScope(AttributeConst.ERR, error);
+                    putRequestScope(AttributeConst.TOKEN, getTokenId());
                     //次の画面を表示
                     forward(ForwardConst.FW_COO_NEXT);
                 }
@@ -202,6 +204,7 @@ public class CookingAction extends ActionBase {
                     mvArray[0] = mv;
                     putSessionScope(AttributeConst.MAT_TENTATIVE, mvArray);
                     putRequestScope(AttributeConst.MAT_TENTATIVE_LENGTH, mvArray.length);
+                    putRequestScope(AttributeConst.TOKEN, getTokenId());
                     //次の画面を表示
                     forward(ForwardConst.FW_COO_NEXT);
 
@@ -213,6 +216,7 @@ public class CookingAction extends ActionBase {
                     mvArrayT[mvArray.length] = mv;
                     putSessionScope(AttributeConst.MAT_TENTATIVE, mvArrayT);
                     putRequestScope(AttributeConst.MAT_TENTATIVE_LENGTH, mvArrayT.length);
+                    putRequestScope(AttributeConst.TOKEN, getTokenId());
                     //次の画面を表示
                     forward(ForwardConst.FW_COO_NEXT);
 
@@ -220,6 +224,7 @@ public class CookingAction extends ActionBase {
             } else {
                 List<MaterialMasterView> materialMastersSelect = serviceMas.getSelectList();
                 putRequestScope(AttributeConst.MATERIALMSS, materialMastersSelect);
+                putRequestScope(AttributeConst.TOKEN, getTokenId());
                 //次の画面を表示
                 forward(ForwardConst.FW_COO_NEXT);
 
@@ -414,9 +419,11 @@ public class CookingAction extends ActionBase {
 
             } else {
 
+
                 putSessionScope(AttributeConst.COOKING, cv);//取得した料理データ
                 putSessionScope(AttributeConst.MATERIALS, materials);
                 putRequestScope(AttributeConst.MATERIALMSS, materialMastersSelect);
+                putRequestScope(AttributeConst.TOKEN,getTokenId());
 
                 //追加画面を表示
                 forward(ForwardConst.FW_COO_ADD);
@@ -432,7 +439,7 @@ public class CookingAction extends ActionBase {
      */
     public void increase() throws ServletException, IOException {
 
-        if (checkAuthor()) {
+        if (checkToken() && checkAuthor()) {
 
             //材料名の選択画面かの判定(選択画面ならidを入手)
             if (getRequestParam(AttributeConst.MAT_COL_MATERIALMASTER_ID) != null) {
@@ -454,6 +461,7 @@ public class CookingAction extends ActionBase {
                 String error = MaterialValidator.validate(mv);
 
                 if (error != "") {
+
                     putRequestScope(AttributeConst.ERR, error);
                 }
 
@@ -480,7 +488,9 @@ public class CookingAction extends ActionBase {
 
             }
             //次の画面を表示
+            putRequestScope(AttributeConst.TOKEN,getTokenId());
             forward(ForwardConst.FW_COO_ADD);
+
         }
     }
 
