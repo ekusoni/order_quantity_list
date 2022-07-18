@@ -19,7 +19,8 @@
 
                 <hr>
 
-                <div class=top_menu_date><h3>期間</h3>
+                <div class=top_menu_date>
+                <h3>期間</h3>
                     <fmt:parseDate value="${menu.startDate}" pattern='yyyy-MM-dd' var="startDay" type="date" />
                     <fmt:parseDate value="${menu.endDate}" pattern='yyyy-MM-dd' var="endDay" type="date" />
                     <fmt:formatDate value='${startDay}' pattern='yyyy年MM月dd日' />～<fmt:formatDate value='${endDay}' pattern='yyyy年MM月dd日' /><br />
@@ -77,7 +78,7 @@
             <hr>
 
                 <div class=top_menu_date>
-                <h4>期間</h4>
+                <h3>期間</h3>
                     <fmt:parseDate value="${menu.startDate}" pattern='yyyy-MM-dd' var="startDay" type="date" />
                     <fmt:parseDate value="${menu.endDate}" pattern='yyyy-MM-dd' var="endDay" type="date" />
                     <fmt:formatDate value='${startDay}' pattern='yyyy年MM月dd日' />～<fmt:formatDate value='${endDay}' pattern='yyyy年MM月dd日' />
